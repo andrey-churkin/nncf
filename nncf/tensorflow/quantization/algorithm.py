@@ -313,6 +313,14 @@ class QuantizationBuilder(TFCompressionAlgorithmBuilder):
         transformations = TFTransformationLayout()
         if self._quantizer_setup is None:
             self._quantizer_setup = self._get_quantizer_setup(model)
+
+        import os
+        output_path = os.environ.get('QS_PATH')
+        if output_path is not None:
+            import json
+            with open(output_path, 'w') as f:
+                json.dump(self._quantizer_setup.get_state(), f, indent=4)
+
         insertion_commands = self._build_insertion_commands_for_quantizer_setup(self._quantizer_setup)
         for command in insertion_commands:
             transformations.register(command)

@@ -1,0 +1,267 @@
+[
+    {
+        "name": "Conv1_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 0.774718701839447
+    },
+    {
+        "name": "expanded_conv_depthwise_depthwise_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 25.65555191040039
+    },
+    {
+        "name": "expanded_conv_project_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 1.2868348360061646
+    },
+    {
+        "name": "block_1_expand_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 1.1234774589538574
+    },
+    {
+        "name": "block_1_depthwise_depthwise_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 3.40576434135437
+    },
+    {
+        "name": "block_1_project_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 1.2293965816497803
+    },
+    {
+        "name": "block_2_expand_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 0.5272607803344727
+    },
+    {
+        "name": "block_2_depthwise_depthwise_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 7.779752254486084
+    },
+    {
+        "name": "block_2_project_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 0.5918645262718201
+    },
+    {
+        "name": "block_3_expand_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 0.9520516395568848
+    },
+    {
+        "name": "block_3_depthwise_depthwise_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 2.2961132526397705
+    },
+    {
+        "name": "block_3_project_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 0.9321188926696777
+    },
+    {
+        "name": "block_4_expand_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 0.40581396222114563
+    },
+    {
+        "name": "block_4_depthwise_depthwise_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 4.978959083557129
+    },
+    {
+        "name": "block_4_project_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 0.49706822633743286
+    },
+    {
+        "name": "block_5_expand_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 0.39255762100219727
+    },
+    {
+        "name": "block_5_depthwise_depthwise_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 4.542354583740234
+    },
+    {
+        "name": "block_5_project_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 0.35799136757850647
+    },
+    {
+        "name": "block_6_expand_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 0.6632230281829834
+    },
+    {
+        "name": "block_6_depthwise_depthwise_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 2.240534782409668
+    },
+    {
+        "name": "block_6_project_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 0.8963252902030945
+    },
+    {
+        "name": "block_7_expand_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 0.326018750667572
+    },
+    {
+        "name": "block_7_depthwise_depthwise_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 3.2944393157958984
+    },
+    {
+        "name": "block_7_project_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 0.5306169986724854
+    },
+    {
+        "name": "block_8_expand_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 0.49937066435813904
+    },
+    {
+        "name": "block_8_depthwise_depthwise_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 3.456984519958496
+    },
+    {
+        "name": "block_8_project_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 0.2895749807357788
+    },
+    {
+        "name": "block_9_expand_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 0.4544692933559418
+    },
+    {
+        "name": "block_9_depthwise_depthwise_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 2.8257789611816406
+    },
+    {
+        "name": "block_9_project_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 0.4996536076068878
+    },
+    {
+        "name": "block_10_expand_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 0.49564215540885925
+    },
+    {
+        "name": "block_10_depthwise_depthwise_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 4.603923320770264
+    },
+    {
+        "name": "block_10_project_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 0.4831135869026184
+    },
+    {
+        "name": "block_11_expand_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 0.2973555028438568
+    },
+    {
+        "name": "block_11_depthwise_depthwise_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 3.1328961849212646
+    },
+    {
+        "name": "block_11_project_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 0.2549256682395935
+    },
+    {
+        "name": "block_12_expand_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 0.2727188169956207
+    },
+    {
+        "name": "block_12_depthwise_depthwise_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 3.291966199874878
+    },
+    {
+        "name": "block_12_project_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 0.46021759510040283
+    },
+    {
+        "name": "block_13_expand_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 0.40985751152038574
+    },
+    {
+        "name": "block_13_depthwise_depthwise_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 1.4764926433563232
+    },
+    {
+        "name": "block_13_project_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 0.37907183170318604
+    },
+    {
+        "name": "block_14_expand_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 0.2884966731071472
+    },
+    {
+        "name": "block_14_depthwise_depthwise_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 3.8219544887542725
+    },
+    {
+        "name": "block_14_project_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 0.2938055396080017
+    },
+    {
+        "name": "block_15_expand_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 0.3082273304462433
+    },
+    {
+        "name": "block_15_depthwise_depthwise_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 3.794682741165161
+    },
+    {
+        "name": "block_15_project_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 0.4388647675514221
+    },
+    {
+        "name": "block_16_expand_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 0.408267617225647
+    },
+    {
+        "name": "block_16_depthwise_depthwise_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 3.147913932800293
+    },
+    {
+        "name": "block_16_project_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 0.5842195153236389
+    },
+    {
+        "name": "Conv_1_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 0.14756344258785248
+    },
+    {
+        "name": "predictions_kernel_quantizer",
+        "sign_val": -1.0,
+        "scale_val": 0.2379940152168274
+    }
+]

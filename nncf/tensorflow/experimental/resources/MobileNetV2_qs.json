@@ -1,0 +1,1940 @@
+{
+    "quantization_points": [
+        {
+            "target_point": {
+                "layer_name": "input_1",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "input_1/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "Conv1_relu",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "Conv1_relu/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "expanded_conv_depthwise_relu",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "expanded_conv_depthwise_relu/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "expanded_conv_project_BN",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "expanded_conv_project_BN/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_1_expand_relu",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_1_expand_relu/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_1_depthwise_relu",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_1_depthwise_relu/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_2_expand_relu",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_2_expand_relu/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_2_depthwise_relu",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_2_depthwise_relu/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_2_add",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_2_add/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_3_expand_relu",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_3_expand_relu/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_3_depthwise_relu",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_3_depthwise_relu/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_4_expand_relu",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_4_expand_relu/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_4_depthwise_relu",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_4_depthwise_relu/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_5_expand_relu",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_5_expand_relu/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_5_depthwise_relu",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_5_depthwise_relu/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_5_add",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_5_add/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_6_expand_relu",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_6_expand_relu/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_6_depthwise_relu",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_6_depthwise_relu/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_7_expand_relu",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_7_expand_relu/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_7_depthwise_relu",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_7_depthwise_relu/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_8_expand_relu",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_8_expand_relu/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_8_depthwise_relu",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_8_depthwise_relu/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_9_expand_relu",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_9_expand_relu/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_9_depthwise_relu",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_9_depthwise_relu/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_9_add",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_9_add/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_10_expand_relu",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_10_expand_relu/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_10_depthwise_relu",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_10_depthwise_relu/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_11_expand_relu",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_11_expand_relu/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_11_depthwise_relu",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_11_depthwise_relu/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_12_expand_relu",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_12_expand_relu/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_12_depthwise_relu",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_12_depthwise_relu/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_12_add",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_12_add/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_13_expand_relu",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_13_expand_relu/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_13_depthwise_relu",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_13_depthwise_relu/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_14_expand_relu",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_14_expand_relu/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_14_depthwise_relu",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_14_depthwise_relu/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_15_expand_relu",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_15_expand_relu/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_15_depthwise_relu",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_15_depthwise_relu/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_15_add",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_15_add/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_16_expand_relu",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_16_expand_relu/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_16_depthwise_relu",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_16_depthwise_relu/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_16_project_BN",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_16_project_BN/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "out_relu",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "out_relu/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "global_average_pooling2d",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "global_average_pooling2d/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_2_project_BN",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_2_project_BN/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_1_project_BN",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_1_project_BN/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_4_project_BN",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_4_project_BN/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_3_project_BN",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_3_project_BN/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_5_project_BN",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_5_project_BN/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_4_add",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_4_add/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_6_project_BN",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_6_project_BN/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_7_project_BN",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_7_project_BN/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_7_add",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_7_add/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_8_project_BN",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_8_project_BN/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_8_add",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_8_add/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_9_project_BN",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_9_project_BN/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_11_project_BN",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_11_project_BN/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_10_project_BN",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_10_project_BN/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_11_add",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_11_add/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_12_project_BN",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_12_project_BN/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_14_project_BN",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_14_project_BN/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_13_project_BN",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_13_project_BN/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_14_add",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_14_add/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_15_project_BN",
+                "instance_idx": 0,
+                "output_port_id": 0
+            },
+            "target_point_class_name": "TFAfterLayer",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": null,
+                "narrow_range": false,
+                "half_range": false,
+                "per_channel": false
+            },
+            "op_name": "block_15_project_BN/fake_quantize"
+        },
+        {
+            "target_point": {
+                "layer_name": "Conv1",
+                "weights_attr_name": "kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "Conv1_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "expanded_conv_depthwise",
+                "weights_attr_name": "depthwise_kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "expanded_conv_depthwise_depthwise_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "expanded_conv_project",
+                "weights_attr_name": "kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "expanded_conv_project_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_1_expand",
+                "weights_attr_name": "kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "block_1_expand_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_1_depthwise",
+                "weights_attr_name": "depthwise_kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "block_1_depthwise_depthwise_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_1_project",
+                "weights_attr_name": "kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "block_1_project_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_2_expand",
+                "weights_attr_name": "kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "block_2_expand_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_2_depthwise",
+                "weights_attr_name": "depthwise_kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "block_2_depthwise_depthwise_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_2_project",
+                "weights_attr_name": "kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "block_2_project_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_3_expand",
+                "weights_attr_name": "kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "block_3_expand_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_3_depthwise",
+                "weights_attr_name": "depthwise_kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "block_3_depthwise_depthwise_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_3_project",
+                "weights_attr_name": "kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "block_3_project_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_4_expand",
+                "weights_attr_name": "kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "block_4_expand_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_4_depthwise",
+                "weights_attr_name": "depthwise_kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "block_4_depthwise_depthwise_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_4_project",
+                "weights_attr_name": "kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "block_4_project_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_5_expand",
+                "weights_attr_name": "kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "block_5_expand_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_5_depthwise",
+                "weights_attr_name": "depthwise_kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "block_5_depthwise_depthwise_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_5_project",
+                "weights_attr_name": "kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "block_5_project_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_6_expand",
+                "weights_attr_name": "kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "block_6_expand_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_6_depthwise",
+                "weights_attr_name": "depthwise_kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "block_6_depthwise_depthwise_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_6_project",
+                "weights_attr_name": "kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "block_6_project_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_7_expand",
+                "weights_attr_name": "kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "block_7_expand_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_7_depthwise",
+                "weights_attr_name": "depthwise_kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "block_7_depthwise_depthwise_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_7_project",
+                "weights_attr_name": "kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "block_7_project_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_8_expand",
+                "weights_attr_name": "kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "block_8_expand_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_8_depthwise",
+                "weights_attr_name": "depthwise_kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "block_8_depthwise_depthwise_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_8_project",
+                "weights_attr_name": "kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "block_8_project_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_9_expand",
+                "weights_attr_name": "kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "block_9_expand_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_9_depthwise",
+                "weights_attr_name": "depthwise_kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "block_9_depthwise_depthwise_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_9_project",
+                "weights_attr_name": "kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "block_9_project_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_10_expand",
+                "weights_attr_name": "kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "block_10_expand_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_10_depthwise",
+                "weights_attr_name": "depthwise_kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "block_10_depthwise_depthwise_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_10_project",
+                "weights_attr_name": "kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "block_10_project_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_11_expand",
+                "weights_attr_name": "kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "block_11_expand_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_11_depthwise",
+                "weights_attr_name": "depthwise_kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "block_11_depthwise_depthwise_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_11_project",
+                "weights_attr_name": "kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "block_11_project_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_12_expand",
+                "weights_attr_name": "kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "block_12_expand_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_12_depthwise",
+                "weights_attr_name": "depthwise_kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "block_12_depthwise_depthwise_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_12_project",
+                "weights_attr_name": "kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "block_12_project_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_13_expand",
+                "weights_attr_name": "kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "block_13_expand_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_13_depthwise",
+                "weights_attr_name": "depthwise_kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "block_13_depthwise_depthwise_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_13_project",
+                "weights_attr_name": "kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "block_13_project_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_14_expand",
+                "weights_attr_name": "kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "block_14_expand_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_14_depthwise",
+                "weights_attr_name": "depthwise_kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "block_14_depthwise_depthwise_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_14_project",
+                "weights_attr_name": "kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "block_14_project_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_15_expand",
+                "weights_attr_name": "kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "block_15_expand_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_15_depthwise",
+                "weights_attr_name": "depthwise_kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "block_15_depthwise_depthwise_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_15_project",
+                "weights_attr_name": "kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "block_15_project_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_16_expand",
+                "weights_attr_name": "kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "block_16_expand_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_16_depthwise",
+                "weights_attr_name": "depthwise_kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "block_16_depthwise_depthwise_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "block_16_project",
+                "weights_attr_name": "kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "block_16_project_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "Conv_1",
+                "weights_attr_name": "kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "Conv_1_kernel_quantizer"
+        },
+        {
+            "target_point": {
+                "layer_name": "predictions",
+                "weights_attr_name": "kernel"
+            },
+            "target_point_class_name": "TFLayerWeight",
+            "quantizer_spec": {
+                "num_bits": 8,
+                "mode": "symmetric",
+                "signedness_to_force": true,
+                "narrow_range": false,
+                "half_range": true,
+                "per_channel": false
+            },
+            "op_name": "predictions_kernel_quantizer"
+        }
+    ]
+}

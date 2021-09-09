@@ -143,11 +143,29 @@ class RangeInitializer:
             layer.apply_range_initialization(collector.min, collector.max)
             layer.enabled = True
 
+        w_init = []
         for layer, op_name, op, collector in op_statistics:
             collector.prepare_statistics()
             weights = layer.get_operation_weights(op_name)
             op.apply_range_initialization(weights, collector.min, collector.max)
             op.enabled = True
+
+            w_init.append(
+                {
+                    'name': op_name,
+                    'sign_val': weights['signed_var'].numpy().item(),
+                    'scale_val': weights['scale_var'].numpy().item(),
+                }
+            )
+
+        import os
+        output_path = os.environ.get('WQ_PATH')
+        if output_path is not None:
+            import json
+            with open(output_path, 'w') as f:
+                json.dump(w_init, f, indent=4)
+
+        exit(0)
 
         for handle in handles:
             handle.remove()

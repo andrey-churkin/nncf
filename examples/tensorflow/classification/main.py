@@ -14,17 +14,19 @@
 import sys
 import os.path as osp
 from pathlib import Path
+import json
 
 import tensorflow as tf
 import tensorflow_addons as tfa
 
-from nncf.config.utils import is_accuracy_aware_training
 from nncf.tensorflow.helpers.model_creation import create_compressed_model
 from nncf.tensorflow import create_compression_callbacks
-from nncf.tensorflow.helpers.model_manager import TFOriginalModelManager
 from nncf.tensorflow.initialization import register_default_init_args
 from nncf.tensorflow.utils.state import TFCompressionState
 from nncf.tensorflow.utils.state import TFCompressionStateLoader
+
+from nncf.tensorflow.experimental.quantization.algorithm import quantize_model
+from nncf.tensorflow.experimental.quantization.algorithm import QuantizerDesc
 
 from examples.tensorflow.classification.datasets.builder import DatasetBuilder
 from examples.tensorflow.common.argparser import get_common_argument_parser
@@ -64,6 +66,13 @@ def get_argument_parser():
         help="Use pretrained models from the tf.keras.applications",
         action="store_true",
     )
+
+    parser.add_argument(
+        '--desc',
+        type=str,
+        help='descriptions of the quantizers'
+    )
+
     return parser
 
 
@@ -175,57 +184,41 @@ def run(config):
 
     resume_training = config.ckpt_path is not None
 
-    if is_accuracy_aware_training(config):
-        with TFOriginalModelManager(model_fn, **model_params) as model:
-            model.compile(metrics=[tf.keras.metrics.CategoricalAccuracy(name='acc@1')])
-            results = model.evaluate(
-                validation_dataset,
-                steps=validation_steps,
-                return_dict=True)
-            uncompressed_model_accuracy = 100 * results['acc@1']
+    with open(config.desc) as f:
+        states = json.load(f)
+        descs = [QuantizerDesc.from_state(s) for s in states]
 
-    compression_state = None
-    if resume_training:
-        compression_state = load_compression_state(config.ckpt_path)
+    with strategy.scope():
+        model = model_fn(**model_params)
+        compress_model = quantize_model(model, descs)
 
-    with TFOriginalModelManager(model_fn, **model_params) as model:
-        with strategy.scope():
-            compression_ctrl, compress_model = create_compressed_model(model, nncf_config, compression_state)
-            compression_callbacks = create_compression_callbacks(compression_ctrl, log_dir=config.log_dir)
+        scheduler = build_scheduler(
+            config=config,
+            steps_per_epoch=train_steps)
+        optimizer = build_optimizer(
+            config=config,
+            scheduler=scheduler)
 
-            scheduler = build_scheduler(
-                config=config,
-                steps_per_epoch=train_steps)
-            optimizer = build_optimizer(
-                config=config,
-                scheduler=scheduler)
+        loss_obj = tf.keras.losses.CategoricalCrossentropy(label_smoothing=0.1)
 
-            loss_obj = tf.keras.losses.CategoricalCrossentropy(label_smoothing=0.1)
+        metrics = [
+            tf.keras.metrics.CategoricalAccuracy(name='acc@1'),
+            tf.keras.metrics.TopKCategoricalAccuracy(k=5, name='acc@5'),
+            tfa.metrics.MeanMetricWrapper(loss_obj, name='ce_loss')
+        ]
 
-            compress_model.add_loss(compression_ctrl.loss)
+        compress_model.compile(optimizer=optimizer,
+                               loss=loss_obj,
+                               metrics=metrics,
+                               run_eagerly=config.get('eager_mode', False))
 
-            metrics = [
-                tf.keras.metrics.CategoricalAccuracy(name='acc@1'),
-                tf.keras.metrics.TopKCategoricalAccuracy(k=5, name='acc@5'),
-                tfa.metrics.MeanMetricWrapper(loss_obj, name='ce_loss'),
-                tfa.metrics.MeanMetricWrapper(compression_ctrl.loss, name='cr_loss')
-            ]
+        checkpoint = tf.train.Checkpoint(model=compress_model)
 
-            compress_model.compile(optimizer=optimizer,
-                                   loss=loss_obj,
-                                   metrics=metrics,
-                                   run_eagerly=config.get('eager_mode', False))
-
-            compress_model.summary()
-
-            checkpoint = tf.train.Checkpoint(model=compress_model,
-                                             compression_state=TFCompressionState(compression_ctrl))
-
-            initial_epoch = 0
-            if resume_training:
-                initial_epoch = resume_from_checkpoint(checkpoint=checkpoint,
-                                                       ckpt_path=config.ckpt_path,
-                                                       steps_per_epoch=train_steps)
+        initial_epoch = 0
+        if resume_training:
+            initial_epoch = resume_from_checkpoint(checkpoint=checkpoint,
+                                                   ckpt_path=config.ckpt_path,
+                                                   steps_per_epoch=train_steps)
 
     callbacks = get_callbacks(
         include_tensorboard=True,
@@ -238,7 +231,6 @@ def run(config):
 
     callbacks.append(get_progress_bar(
         stateful_metrics=['loss'] + [metric.name for metric in metrics]))
-    callbacks.extend(compression_callbacks)
 
     validation_kwargs = {
         'validation_data': validation_dataset,
@@ -247,33 +239,16 @@ def run(config):
     }
 
     if 'train' in config.mode:
-        if is_accuracy_aware_training(config):
-            logger.info('starting an accuracy-aware training loop...')
-            result_dict_to_val_metric_fn = lambda results: 100 * results['acc@1']
-            compress_model.accuracy_aware_fit(train_dataset,
-                                              compression_ctrl,
-                                              nncf_config=config.nncf_config,
-                                              callbacks=callbacks,
-                                              initial_epoch=initial_epoch,
-                                              steps_per_epoch=train_steps,
-                                              tensorboard_writer=config.tb,
-                                              log_dir=config.log_dir,
-                                              uncompressed_model_accuracy=uncompressed_model_accuracy,
-                                              result_dict_to_val_metric_fn=result_dict_to_val_metric_fn,
-                                              **validation_kwargs)
-        else:
-            logger.info('training...')
-            compress_model.fit(
-                train_dataset,
-                epochs=train_epochs,
-                steps_per_epoch=train_steps,
-                initial_epoch=initial_epoch,
-                callbacks=callbacks,
-                **validation_kwargs)
+        logger.info('training...')
+        compress_model.fit(
+            train_dataset,
+            epochs=train_epochs,
+            steps_per_epoch=train_steps,
+            initial_epoch=initial_epoch,
+            callbacks=callbacks,
+            **validation_kwargs)
 
     logger.info('evaluation...')
-    statistics = compression_ctrl.statistics()
-    logger.info(statistics.to_str())
     results = compress_model.evaluate(
         validation_dataset,
         steps=validation_steps,
@@ -285,24 +260,28 @@ def run(config):
         write_metrics(results[1], config.metrics_dump)
 
     if 'export' in config.mode:
+        from nncf.tensorflow.exporter import TFExporter
+
         save_path, save_format = get_saving_parameters(config)
-        compression_ctrl.export_model(save_path, save_format)
+        exporter = TFExporter(compress_model)
+        exporter.export_model(save_path, save_format)
+
         logger.info('Saved to {}'.format(save_path))
 
 
 def export(config):
+    with open(config.descs) as f:
+        states = json.load(f)
+        descs = [QuantizerDesc.from_state(s) for s in states]
+
+
     model, model_params = get_model(config.model,
                                     input_shape=config.get('input_info', {}).get('sample_size', None),
                                     num_classes=config.get('num_classes', get_num_classes(config.dataset)),
                                     pretrained=config.get('pretrained', False),
                                     weights=config.get('weights', None))
     model = model(**model_params)
-
-    compression_state = None
-    if config.ckpt_path:
-        compression_state = load_compression_state(config.ckpt_path)
-
-    compression_ctrl, compress_model = create_compressed_model(model, config.nncf_config, compression_state)
+    compress_model = quantize_model(model, descs)
 
     metrics = [
         tf.keras.metrics.CategoricalAccuracy(name='acc@1'),
@@ -312,17 +291,19 @@ def export(config):
 
     compress_model.compile(loss=loss_obj,
                            metrics=metrics)
-    compress_model.summary()
 
-    checkpoint = tf.train.Checkpoint(model=compress_model,
-                                     compression_state=TFCompressionState(compression_ctrl))
+    checkpoint = tf.train.Checkpoint(model=compress_model)
 
     if config.ckpt_path is not None:
         load_checkpoint(checkpoint=checkpoint,
                         ckpt_path=config.ckpt_path)
 
     save_path, save_format = get_saving_parameters(config)
-    compression_ctrl.export_model(save_path, save_format)
+
+    from nncf.tensorflow.exporter import TFExporter
+    exporter = TFExporter(compress_model)
+    exporter.export_model(save_path, save_format)
+
     logger.info('Saved to {}'.format(save_path))
 
 

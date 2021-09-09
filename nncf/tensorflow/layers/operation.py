@@ -62,7 +62,7 @@ class NNCFOperation:
         :return: weights dictionary {weight name: weight value}
         """
 
-    def call(self, inputs, weights, training):
+    def call(self, inputs, weights=None, training=None):
         """
         The method performs the logic of applying the operation to the input tensors
         (which should be passed in as argument).

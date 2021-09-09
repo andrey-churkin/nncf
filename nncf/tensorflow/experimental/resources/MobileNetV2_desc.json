@@ -1,0 +1,3274 @@
+[
+    {
+        "name": "input_1/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/Conv1/Conv2D",
+                "op_type_name": "Conv2D",
+                "port_id": 0,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            null,
+            224,
+            224,
+            3
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "Conv1_relu/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/Conv1_relu/Relu6",
+                "op_type_name": "Relu6",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            112,
+            112,
+            32
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "expanded_conv_depthwise_relu/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/expanded_conv_depthwise_relu/Relu6",
+                "op_type_name": "Relu6",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            112,
+            112,
+            32
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "expanded_conv_project_BN/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/expanded_conv_project_BN/FusedBatchNormV3",
+                "op_type_name": "FusedBatchNormV3",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            112,
+            112,
+            16
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_1_expand_relu/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_1_expand_relu/Relu6",
+                "op_type_name": "Relu6",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            112,
+            112,
+            96
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_1_depthwise_relu/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_1_depthwise_relu/Relu6",
+                "op_type_name": "Relu6",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            56,
+            56,
+            96
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_2_expand_relu/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_2_expand_relu/Relu6",
+                "op_type_name": "Relu6",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            56,
+            56,
+            144
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_2_depthwise_relu/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_2_depthwise_relu/Relu6",
+                "op_type_name": "Relu6",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            56,
+            56,
+            144
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_2_add/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_2_add/add",
+                "op_type_name": "AddV2",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            56,
+            56,
+            24
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_3_expand_relu/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_3_expand_relu/Relu6",
+                "op_type_name": "Relu6",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            56,
+            56,
+            144
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_3_depthwise_relu/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_3_depthwise_relu/Relu6",
+                "op_type_name": "Relu6",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            28,
+            28,
+            144
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_4_expand_relu/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_4_expand_relu/Relu6",
+                "op_type_name": "Relu6",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            28,
+            28,
+            192
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_4_depthwise_relu/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_4_depthwise_relu/Relu6",
+                "op_type_name": "Relu6",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            28,
+            28,
+            192
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_5_expand_relu/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_5_expand_relu/Relu6",
+                "op_type_name": "Relu6",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            28,
+            28,
+            192
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_5_depthwise_relu/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_5_depthwise_relu/Relu6",
+                "op_type_name": "Relu6",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            28,
+            28,
+            192
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_5_add/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_5_add/add",
+                "op_type_name": "AddV2",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            28,
+            28,
+            32
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_6_expand_relu/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_6_expand_relu/Relu6",
+                "op_type_name": "Relu6",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            28,
+            28,
+            192
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_6_depthwise_relu/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_6_depthwise_relu/Relu6",
+                "op_type_name": "Relu6",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            14,
+            14,
+            192
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_7_expand_relu/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_7_expand_relu/Relu6",
+                "op_type_name": "Relu6",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            14,
+            14,
+            384
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_7_depthwise_relu/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_7_depthwise_relu/Relu6",
+                "op_type_name": "Relu6",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            14,
+            14,
+            384
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_8_expand_relu/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_8_expand_relu/Relu6",
+                "op_type_name": "Relu6",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            14,
+            14,
+            384
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_8_depthwise_relu/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_8_depthwise_relu/Relu6",
+                "op_type_name": "Relu6",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            14,
+            14,
+            384
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_9_expand_relu/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_9_expand_relu/Relu6",
+                "op_type_name": "Relu6",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            14,
+            14,
+            384
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_9_depthwise_relu/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_9_depthwise_relu/Relu6",
+                "op_type_name": "Relu6",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            14,
+            14,
+            384
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_9_add/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_9_add/add",
+                "op_type_name": "AddV2",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            14,
+            14,
+            64
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_10_expand_relu/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_10_expand_relu/Relu6",
+                "op_type_name": "Relu6",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            14,
+            14,
+            384
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_10_depthwise_relu/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_10_depthwise_relu/Relu6",
+                "op_type_name": "Relu6",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            14,
+            14,
+            384
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_11_expand_relu/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_11_expand_relu/Relu6",
+                "op_type_name": "Relu6",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            14,
+            14,
+            576
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_11_depthwise_relu/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_11_depthwise_relu/Relu6",
+                "op_type_name": "Relu6",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            14,
+            14,
+            576
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_12_expand_relu/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_12_expand_relu/Relu6",
+                "op_type_name": "Relu6",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            14,
+            14,
+            576
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_12_depthwise_relu/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_12_depthwise_relu/Relu6",
+                "op_type_name": "Relu6",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            14,
+            14,
+            576
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_12_add/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_12_add/add",
+                "op_type_name": "AddV2",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            14,
+            14,
+            96
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_13_expand_relu/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_13_expand_relu/Relu6",
+                "op_type_name": "Relu6",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            14,
+            14,
+            576
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_13_depthwise_relu/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_13_depthwise_relu/Relu6",
+                "op_type_name": "Relu6",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            7,
+            7,
+            576
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_14_expand_relu/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_14_expand_relu/Relu6",
+                "op_type_name": "Relu6",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            7,
+            7,
+            960
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_14_depthwise_relu/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_14_depthwise_relu/Relu6",
+                "op_type_name": "Relu6",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            7,
+            7,
+            960
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_15_expand_relu/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_15_expand_relu/Relu6",
+                "op_type_name": "Relu6",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            7,
+            7,
+            960
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_15_depthwise_relu/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_15_depthwise_relu/Relu6",
+                "op_type_name": "Relu6",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            7,
+            7,
+            960
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_15_add/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_15_add/add",
+                "op_type_name": "AddV2",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            7,
+            7,
+            160
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_16_expand_relu/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_16_expand_relu/Relu6",
+                "op_type_name": "Relu6",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            7,
+            7,
+            960
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_16_depthwise_relu/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_16_depthwise_relu/Relu6",
+                "op_type_name": "Relu6",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            7,
+            7,
+            960
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_16_project_BN/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_16_project_BN/FusedBatchNormV3",
+                "op_type_name": "FusedBatchNormV3",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            7,
+            7,
+            320
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "out_relu/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/out_relu/Relu6",
+                "op_type_name": "Relu6",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            7,
+            7,
+            1280
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "global_average_pooling2d/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/global_average_pooling2d/Mean",
+                "op_type_name": "Mean",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            1280
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_2_project_BN/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_2_project_BN/FusedBatchNormV3",
+                "op_type_name": "FusedBatchNormV3",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            56,
+            56,
+            24
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_1_project_BN/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_1_project_BN/FusedBatchNormV3",
+                "op_type_name": "FusedBatchNormV3",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            56,
+            56,
+            24
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_4_project_BN/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_4_project_BN/FusedBatchNormV3",
+                "op_type_name": "FusedBatchNormV3",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            28,
+            28,
+            32
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_3_project_BN/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_3_project_BN/FusedBatchNormV3",
+                "op_type_name": "FusedBatchNormV3",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            28,
+            28,
+            32
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_5_project_BN/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_5_project_BN/FusedBatchNormV3",
+                "op_type_name": "FusedBatchNormV3",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            28,
+            28,
+            32
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_4_add/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_4_add/add",
+                "op_type_name": "AddV2",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            28,
+            28,
+            32
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_6_project_BN/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_6_project_BN/FusedBatchNormV3",
+                "op_type_name": "FusedBatchNormV3",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            14,
+            14,
+            64
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_7_project_BN/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_7_project_BN/FusedBatchNormV3",
+                "op_type_name": "FusedBatchNormV3",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            14,
+            14,
+            64
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_7_add/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_7_add/add",
+                "op_type_name": "AddV2",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            14,
+            14,
+            64
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_8_project_BN/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_8_project_BN/FusedBatchNormV3",
+                "op_type_name": "FusedBatchNormV3",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            14,
+            14,
+            64
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_8_add/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_8_add/add",
+                "op_type_name": "AddV2",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            14,
+            14,
+            64
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_9_project_BN/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_9_project_BN/FusedBatchNormV3",
+                "op_type_name": "FusedBatchNormV3",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            14,
+            14,
+            64
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_11_project_BN/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_11_project_BN/FusedBatchNormV3",
+                "op_type_name": "FusedBatchNormV3",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            14,
+            14,
+            96
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_10_project_BN/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_10_project_BN/FusedBatchNormV3",
+                "op_type_name": "FusedBatchNormV3",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            14,
+            14,
+            96
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_11_add/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_11_add/add",
+                "op_type_name": "AddV2",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            14,
+            14,
+            96
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_12_project_BN/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_12_project_BN/FusedBatchNormV3",
+                "op_type_name": "FusedBatchNormV3",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            14,
+            14,
+            96
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_14_project_BN/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_14_project_BN/FusedBatchNormV3",
+                "op_type_name": "FusedBatchNormV3",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            7,
+            7,
+            160
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_13_project_BN/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_13_project_BN/FusedBatchNormV3",
+                "op_type_name": "FusedBatchNormV3",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            7,
+            7,
+            160
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_14_add/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_14_add/add",
+                "op_type_name": "AddV2",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            7,
+            7,
+            160
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_15_project_BN/fake_quantize",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": null,
+            "narrow_range": false,
+            "half_range": false,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_15_project_BN/FusedBatchNormV3",
+                "op_type_name": "FusedBatchNormV3",
+                "port_id": 0,
+                "is_pre_hook": false
+            }
+        ],
+        "input_shape": [
+            null,
+            7,
+            7,
+            160
+        ],
+        "scale_val": 6.0,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "Conv1_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/Conv1/Conv2D",
+                "op_type_name": "Conv2D",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            3,
+            3,
+            3,
+            32
+        ],
+        "scale_val": 0.774718701839447,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "expanded_conv_depthwise_depthwise_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/expanded_conv_depthwise/depthwise",
+                "op_type_name": "DepthwiseConv2dNative",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            3,
+            3,
+            32,
+            1
+        ],
+        "scale_val": 25.65555191040039,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "expanded_conv_project_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/expanded_conv_project/Conv2D",
+                "op_type_name": "Conv2D",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            1,
+            1,
+            32,
+            16
+        ],
+        "scale_val": 1.2868348360061646,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_1_expand_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_1_expand/Conv2D",
+                "op_type_name": "Conv2D",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            1,
+            1,
+            16,
+            96
+        ],
+        "scale_val": 1.1234774589538574,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_1_depthwise_depthwise_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_1_depthwise/depthwise",
+                "op_type_name": "DepthwiseConv2dNative",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            3,
+            3,
+            96,
+            1
+        ],
+        "scale_val": 3.40576434135437,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_1_project_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_1_project/Conv2D",
+                "op_type_name": "Conv2D",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            1,
+            1,
+            96,
+            24
+        ],
+        "scale_val": 1.2293965816497803,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_2_expand_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_2_expand/Conv2D",
+                "op_type_name": "Conv2D",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            1,
+            1,
+            24,
+            144
+        ],
+        "scale_val": 0.5272607803344727,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_2_depthwise_depthwise_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_2_depthwise/depthwise",
+                "op_type_name": "DepthwiseConv2dNative",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            3,
+            3,
+            144,
+            1
+        ],
+        "scale_val": 7.779752254486084,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_2_project_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_2_project/Conv2D",
+                "op_type_name": "Conv2D",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            1,
+            1,
+            144,
+            24
+        ],
+        "scale_val": 0.5918645262718201,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_3_expand_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_3_expand/Conv2D",
+                "op_type_name": "Conv2D",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            1,
+            1,
+            24,
+            144
+        ],
+        "scale_val": 0.9520516395568848,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_3_depthwise_depthwise_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_3_depthwise/depthwise",
+                "op_type_name": "DepthwiseConv2dNative",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            3,
+            3,
+            144,
+            1
+        ],
+        "scale_val": 2.2961132526397705,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_3_project_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_3_project/Conv2D",
+                "op_type_name": "Conv2D",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            1,
+            1,
+            144,
+            32
+        ],
+        "scale_val": 0.9321188926696777,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_4_expand_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_4_expand/Conv2D",
+                "op_type_name": "Conv2D",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            1,
+            1,
+            32,
+            192
+        ],
+        "scale_val": 0.40581396222114563,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_4_depthwise_depthwise_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_4_depthwise/depthwise",
+                "op_type_name": "DepthwiseConv2dNative",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            3,
+            3,
+            192,
+            1
+        ],
+        "scale_val": 4.978959083557129,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_4_project_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_4_project/Conv2D",
+                "op_type_name": "Conv2D",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            1,
+            1,
+            192,
+            32
+        ],
+        "scale_val": 0.49706822633743286,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_5_expand_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_5_expand/Conv2D",
+                "op_type_name": "Conv2D",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            1,
+            1,
+            32,
+            192
+        ],
+        "scale_val": 0.39255762100219727,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_5_depthwise_depthwise_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_5_depthwise/depthwise",
+                "op_type_name": "DepthwiseConv2dNative",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            3,
+            3,
+            192,
+            1
+        ],
+        "scale_val": 4.542354583740234,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_5_project_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_5_project/Conv2D",
+                "op_type_name": "Conv2D",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            1,
+            1,
+            192,
+            32
+        ],
+        "scale_val": 0.35799136757850647,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_6_expand_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_6_expand/Conv2D",
+                "op_type_name": "Conv2D",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            1,
+            1,
+            32,
+            192
+        ],
+        "scale_val": 0.6632230281829834,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_6_depthwise_depthwise_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_6_depthwise/depthwise",
+                "op_type_name": "DepthwiseConv2dNative",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            3,
+            3,
+            192,
+            1
+        ],
+        "scale_val": 2.240534782409668,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_6_project_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_6_project/Conv2D",
+                "op_type_name": "Conv2D",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            1,
+            1,
+            192,
+            64
+        ],
+        "scale_val": 0.8963252902030945,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_7_expand_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_7_expand/Conv2D",
+                "op_type_name": "Conv2D",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            1,
+            1,
+            64,
+            384
+        ],
+        "scale_val": 0.326018750667572,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_7_depthwise_depthwise_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_7_depthwise/depthwise",
+                "op_type_name": "DepthwiseConv2dNative",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            3,
+            3,
+            384,
+            1
+        ],
+        "scale_val": 3.2944393157958984,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_7_project_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_7_project/Conv2D",
+                "op_type_name": "Conv2D",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            1,
+            1,
+            384,
+            64
+        ],
+        "scale_val": 0.5306169986724854,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_8_expand_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_8_expand/Conv2D",
+                "op_type_name": "Conv2D",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            1,
+            1,
+            64,
+            384
+        ],
+        "scale_val": 0.49937066435813904,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_8_depthwise_depthwise_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_8_depthwise/depthwise",
+                "op_type_name": "DepthwiseConv2dNative",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            3,
+            3,
+            384,
+            1
+        ],
+        "scale_val": 3.456984519958496,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_8_project_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_8_project/Conv2D",
+                "op_type_name": "Conv2D",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            1,
+            1,
+            384,
+            64
+        ],
+        "scale_val": 0.2895749807357788,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_9_expand_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_9_expand/Conv2D",
+                "op_type_name": "Conv2D",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            1,
+            1,
+            64,
+            384
+        ],
+        "scale_val": 0.4544692933559418,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_9_depthwise_depthwise_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_9_depthwise/depthwise",
+                "op_type_name": "DepthwiseConv2dNative",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            3,
+            3,
+            384,
+            1
+        ],
+        "scale_val": 2.8257789611816406,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_9_project_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_9_project/Conv2D",
+                "op_type_name": "Conv2D",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            1,
+            1,
+            384,
+            64
+        ],
+        "scale_val": 0.4996536076068878,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_10_expand_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_10_expand/Conv2D",
+                "op_type_name": "Conv2D",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            1,
+            1,
+            64,
+            384
+        ],
+        "scale_val": 0.49564215540885925,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_10_depthwise_depthwise_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_10_depthwise/depthwise",
+                "op_type_name": "DepthwiseConv2dNative",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            3,
+            3,
+            384,
+            1
+        ],
+        "scale_val": 4.603923320770264,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_10_project_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_10_project/Conv2D",
+                "op_type_name": "Conv2D",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            1,
+            1,
+            384,
+            96
+        ],
+        "scale_val": 0.4831135869026184,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_11_expand_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_11_expand/Conv2D",
+                "op_type_name": "Conv2D",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            1,
+            1,
+            96,
+            576
+        ],
+        "scale_val": 0.2973555028438568,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_11_depthwise_depthwise_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_11_depthwise/depthwise",
+                "op_type_name": "DepthwiseConv2dNative",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            3,
+            3,
+            576,
+            1
+        ],
+        "scale_val": 3.1328961849212646,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_11_project_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_11_project/Conv2D",
+                "op_type_name": "Conv2D",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            1,
+            1,
+            576,
+            96
+        ],
+        "scale_val": 0.2549256682395935,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_12_expand_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_12_expand/Conv2D",
+                "op_type_name": "Conv2D",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            1,
+            1,
+            96,
+            576
+        ],
+        "scale_val": 0.2727188169956207,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_12_depthwise_depthwise_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_12_depthwise/depthwise",
+                "op_type_name": "DepthwiseConv2dNative",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            3,
+            3,
+            576,
+            1
+        ],
+        "scale_val": 3.291966199874878,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_12_project_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_12_project/Conv2D",
+                "op_type_name": "Conv2D",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            1,
+            1,
+            576,
+            96
+        ],
+        "scale_val": 0.46021759510040283,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_13_expand_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_13_expand/Conv2D",
+                "op_type_name": "Conv2D",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            1,
+            1,
+            96,
+            576
+        ],
+        "scale_val": 0.40985751152038574,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_13_depthwise_depthwise_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_13_depthwise/depthwise",
+                "op_type_name": "DepthwiseConv2dNative",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            3,
+            3,
+            576,
+            1
+        ],
+        "scale_val": 1.4764926433563232,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_13_project_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_13_project/Conv2D",
+                "op_type_name": "Conv2D",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            1,
+            1,
+            576,
+            160
+        ],
+        "scale_val": 0.37907183170318604,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_14_expand_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_14_expand/Conv2D",
+                "op_type_name": "Conv2D",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            1,
+            1,
+            160,
+            960
+        ],
+        "scale_val": 0.2884966731071472,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_14_depthwise_depthwise_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_14_depthwise/depthwise",
+                "op_type_name": "DepthwiseConv2dNative",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            3,
+            3,
+            960,
+            1
+        ],
+        "scale_val": 3.8219544887542725,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_14_project_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_14_project/Conv2D",
+                "op_type_name": "Conv2D",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            1,
+            1,
+            960,
+            160
+        ],
+        "scale_val": 0.2938055396080017,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_15_expand_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_15_expand/Conv2D",
+                "op_type_name": "Conv2D",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            1,
+            1,
+            160,
+            960
+        ],
+        "scale_val": 0.3082273304462433,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_15_depthwise_depthwise_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_15_depthwise/depthwise",
+                "op_type_name": "DepthwiseConv2dNative",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            3,
+            3,
+            960,
+            1
+        ],
+        "scale_val": 3.794682741165161,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_15_project_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_15_project/Conv2D",
+                "op_type_name": "Conv2D",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            1,
+            1,
+            960,
+            160
+        ],
+        "scale_val": 0.4388647675514221,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_16_expand_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_16_expand/Conv2D",
+                "op_type_name": "Conv2D",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            1,
+            1,
+            160,
+            960
+        ],
+        "scale_val": 0.408267617225647,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_16_depthwise_depthwise_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_16_depthwise/depthwise",
+                "op_type_name": "DepthwiseConv2dNative",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            3,
+            3,
+            960,
+            1
+        ],
+        "scale_val": 3.147913932800293,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "block_16_project_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/block_16_project/Conv2D",
+                "op_type_name": "Conv2D",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            1,
+            1,
+            960,
+            320
+        ],
+        "scale_val": 0.5842195153236389,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "Conv_1_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/Conv_1/Conv2D",
+                "op_type_name": "Conv2D",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            1,
+            1,
+            320,
+            1280
+        ],
+        "scale_val": 0.14756344258785248,
+        "sign_val": -1.0,
+        "priority": 0
+    },
+    {
+        "name": "predictions_kernel_quantizer",
+        "quantizer_spec": {
+            "num_bits": 8,
+            "mode": "symmetric",
+            "signedness_to_force": true,
+            "narrow_range": false,
+            "half_range": true,
+            "per_channel": false
+        },
+        "target_ops": [
+            {
+                "op_name": "mobilenetv2_1.00_224/predictions/MatMul",
+                "op_type_name": "MatMul",
+                "port_id": 1,
+                "is_pre_hook": true
+            }
+        ],
+        "input_shape": [
+            1280,
+            1000
+        ],
+        "scale_val": 0.2379940152168274,
+        "sign_val": -1.0,
+        "priority": 0
+    }
+]

@@ -100,7 +100,7 @@ class Quantizer(NNCFOperation):
         """
         raise NotImplementedError
 
-    def call(self, inputs, weights, training):
+    def call(self, inputs, weights=None, training=None):
         """
         The method applies quantization to the input tensor if the quantizer is enabled,
         otherwise, if the quantizer is disabled, the method returns the input tensor as is.
