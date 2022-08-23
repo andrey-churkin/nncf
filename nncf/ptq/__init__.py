@@ -12,4 +12,4 @@
 """
 
 from nncf.ptq.api.quantization import quantize
-from nncf.ptq.data.dataloader import make_dataloader
+from nncf.ptq.data.dataloader import create_dataloader

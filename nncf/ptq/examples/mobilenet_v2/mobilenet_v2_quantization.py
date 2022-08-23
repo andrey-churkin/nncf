@@ -39,7 +39,7 @@ def run_example():
         os.makedirs(args.example_dir)
 
     # Step 1: Prepare OpenVINO model.
-    ir_model_xml, ir_model_bin = prepare_openvino_model(args.example_dir)
+    ir_model_xml, ir_model_bin = torch_to_openvino_model(args.example_dir)
     ie = Core()
     original_model = ie.read_model(model=ir_model_xml, weights=ir_model_bin)
 
@@ -47,7 +47,18 @@ def run_example():
     data_source = create_val_dataset(args.dataset_dir)
 
     # Step 3: Apply quantization algorithm.
-    quantized_model = quantize_model(original_model, data_source)
+
+    # Define the transformation method. This method should
+    # take a data item from the data source and transform it
+    # into the model expected input.
+    def transform_fn(data_item):
+        images, _ = data_item
+        return images.numpy()
+
+    # Wrap framework-specific data source into `NNCFDataLoader` object.
+    calibration_dataset = ptq.create_dataloader(data_source, transform_fn)
+
+    quantized_model = ptq.quantize(original_model, calibration_dataset)
 
     # Step 4: Save quantized model.
     model_name = 'mobilenet_v2_quantized'
@@ -102,7 +113,7 @@ def create_parser():
     return parser
 
 
-def prepare_openvino_model(example_dir: str) -> Tuple[str, str]:
+def torch_to_openvino_model(example_dir: str) -> Tuple[str, str]:
     """
     Converts PyTorch MobileNetV2 model to the OpenVINO IR format.
 
@@ -123,14 +134,7 @@ def prepare_openvino_model(example_dir: str) -> Tuple[str, str]:
     torch.onnx.export(model, dummy_input, onnx_model_path, verbose=False)
 
     # Step 3: Run Model Optimizer to convert ONNX model to OpenVINO IR.
-    mo_command = (
-        'mo '
-        '--framework onnx '
-        '--data_type FP16 '
-        '--input_shape [1,3,224,224] '
-        f'-m {onnx_model_path} '
-        f'--output_dir {example_dir}'
-    )
+    mo_command = f'mo --framework onnx -m {onnx_model_path} --output_dir {example_dir}'
     subprocess.call(mo_command, shell=True)
 
     # Step 4: Return path to IR model as result.
@@ -159,35 +163,9 @@ def create_val_dataset(dataset_dir: str) -> torch.utils.data.Dataset:
     return val_dataset
 
 
-def quantize_model(model: openvino.runtime.Model,
-                   data_source: torch.utils.data.Dataset) -> openvino.runtime.Model:
-    """
-    Applies quantization algorithm to the OpenVINO model.
-
-    :param model: An OpenVINO model to be quantized.
-    :param data_source: A framework-specific data source for the calibration process.
-    :return: Quantized OpenVINO model.
-    """
-    # Step 1: Define transformation method. This method should
-    # take a data item from the data source and transform it
-    # into the model expected input.
-    def transform_fn(data_item):
-        images, _ = data_item
-        return images.numpy()
-
-    # Step 2: Wrap framework-specific data source to the `NNCFDataLoader` object.
-    calibration_dataset = ptq.make_dataloader(data_source, transform_fn)
-
-    # Step 3: Apply quantization algorithm.
-    quantized_model = ptq.quantize(model, calibration_dataset)
-
-    return quantized_model
-
-
 # This method was taken as is from the pythorch repository.
 # You can find it [here](https://github.com/pytorch/examples/blob/main/imagenet/main.py).
-# Code regarding CUDA and training was commented out.
-# We put such code in the `NOT_NEEDED` block.
+# Code regarding CUDA and training was removed.
 # Some code was changed and added. We put such code in the `BEFORE`` and `AFTER` blocks.
 
 # BEFORE {
@@ -204,13 +182,6 @@ def validate(val_loader, model, print_freq: int):
             for i, (images, target) in enumerate(loader):
                 i = base_progress + i
 
-                # NOT_NEEDED {
-                # if args.gpu is not None:
-                #     images = images.cuda(args.gpu, non_blocking=True)
-                # if torch.cuda.is_available():
-                #     target = target.cuda(args.gpu, non_blocking=True)
-                # }
-
                 # compute output
 
                 # BEFORE {
@@ -225,17 +196,8 @@ def validate(val_loader, model, print_freq: int):
                 )
                 # }
 
-                # NOT_NEEDED {
-                # loss = criterion(output, target)
-                # }
-
-                # measure accuracy and record loss
+                # measure accuracy
                 acc1, acc5 = usercode.accuracy(output, target, topk=(1, 5))
-
-                # NOT_NEEDED {
-                # losses.update(loss.item(), images.size(0))
-                # }
-
                 top1.update(acc1[0], images.size(0))
                 top5.update(acc5[0], images.size(0))
 
@@ -247,47 +209,13 @@ def validate(val_loader, model, print_freq: int):
                     progress.display(i + 1)
 
     batch_time = usercode.AverageMeter('Time', ':6.3f', usercode.Summary.NONE)
-
-    # NOT_NEEDED {
-    # losses = usercode.AverageMeter('Loss', ':.4e', usercode.Summary.NONE)
-    # }
-
     top1 = usercode.AverageMeter('Acc@1', ':6.2f', usercode.Summary.AVERAGE)
     top5 = usercode.AverageMeter('Acc@5', ':6.2f', usercode.Summary.AVERAGE)
 
-    # BEFORE {
-    # progress = usercode.ProgressMeter(
-    #     len(val_loader) + (args.distributed and (len(val_loader.sampler) * args.world_size < len(val_loader.dataset))),
-    #     [batch_time, losses, top1, top5],
-    #     prefix='Test: ')
-    # }
-    # AFTER {
     progress = usercode.ProgressMeter(
         len(val_loader), [batch_time, top1, top5], prefix='Test: '
     )
-    # }
-
-    # NOT_NEEDED {
-    # switch to evaluate mode
-    # model.eval()
-    # }
-
     run_validate(val_loader)
-
-    # NOT_NEEDED {
-    # if args.distributed:
-    #     top1.all_reduce()
-    #     top5.all_reduce()
-    #
-    # if args.distributed and (len(val_loader.sampler) * args.world_size < len(val_loader.dataset)):
-    #     aux_val_dataset = Subset(val_loader.dataset,
-    #                              range(len(val_loader.sampler) * args.world_size, len(val_loader.dataset)))
-    #     aux_val_loader = torch.utils.data.DataLoader(
-    #         aux_val_dataset, batch_size=args.batch_size, shuffle=False,
-    #         num_workers=args.workers, pin_memory=True)
-    #     run_validate(aux_val_loader, len(val_loader))
-    # }
-
     progress.display_summary()
 
     return top1.avg

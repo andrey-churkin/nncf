@@ -45,8 +45,8 @@ class NNCFDataLoader(ABC):
         """
 
 
-def make_dataloader(data_source: DataSource,
-                    transform_fn: Optional[Callable] = None) -> NNCFDataLoader:
+def create_dataloader(data_source: DataSource,
+                      transform_fn: Optional[Callable] = None) -> NNCFDataLoader:
     """
     Wraps a provided custom data source into `NNCFDataLoader` and makes
     it suitable for use in compression algorithms.

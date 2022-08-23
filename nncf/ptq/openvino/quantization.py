@@ -25,7 +25,7 @@ def quantize_impl(model: openvino.runtime.Model,
                   preset: str,
                   target_device: str,
                   subset_size: int,
-                  use_fast_bias: bool,
+                  fast_error_correction: bool,
                   model_type: Optional[str] = None) -> openvino.runtime.Model:
     """
     Implementation of the `quantize()` method for the OpenVINO backend.
@@ -51,7 +51,7 @@ def quantize_impl(model: openvino.runtime.Model,
                 'target_device': target_device,
                 'preset': preset,
                 'stat_subset_size': subset_size,
-                'use_fast_bias': use_fast_bias,
+                'use_fast_bias': fast_error_correction,
                 'model_type': model_type,
             }
         }
@@ -62,6 +62,7 @@ def quantize_impl(model: openvino.runtime.Model,
     engine = pot.IEEngine(engine_config, pot_dataloader)
     pipeline = pot.create_pipeline(algorithms, engine)
     compressed_model = pipeline.run(pot_model)
+    pot.compress_model_weights(compressed_model)
 
     compressed_model_paths = pot.save_model(compressed_model, save_path='/tmp/pot', model_name='model')
     ir_model_xml = compressed_model_paths[0]['model']

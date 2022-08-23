@@ -24,7 +24,7 @@ def quantize(model: ModelType,
              preset: str = 'performance',
              target_device: str = 'ANY',
              subset_size: int = 300,
-             use_fast_bias: bool = True,
+             fast_error_correction: bool = True,
              model_type: Optional[str] = None):
     """
     Applies post-training quantization algorithm to provided model.
@@ -42,7 +42,7 @@ def quantize(model: ModelType,
         following values: `ANY`, `CPU`, `GPU`, `GNA`.
     :param subset_size: Size of a subset to calculate activations
         statistics used for quantization.
-    :param use_fast_bias: Setting this option to `False` enables a different
+    :param fast_error_correction: Setting this option to `False` enables a different
         bias correction method which is more accurate, in general, and takes
         more time but requires less memory.
     :param model_type: Model type is needed to specify additional patterns
@@ -53,6 +53,6 @@ def quantize(model: ModelType,
     if backend == BackendType.OPENVINO:
         from nncf.ptq.openvino import quantize_impl
         return quantize_impl(model, calibration_dataset, preset, target_device, subset_size,
-                             use_fast_bias, model_type)
+                             fast_error_correction, model_type)
 
     raise RuntimeError(f'Unsupported type of backend: {backend}')
