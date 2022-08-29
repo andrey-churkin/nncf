@@ -1,9 +1,9 @@
 # Quantize the Ultralytics YOLOv5 model and check accuracy
 
-To work with this sample you should do the following steps:
+You should do the following steps to work with this example:
 
 1. Clone the `yolov5` repository into `${NNCF_ROOT}/nncf/ptq/examples/yolo_v5` folder and install requirements.
-   To do this run the following command:
+   Run the following command to do this:
 
    ```bash
    NNCF_ROOT="" # absolute path to the NNCF repository
@@ -14,7 +14,7 @@ To work with this sample you should do the following steps:
    ```
 
 2. Set the `PYTHONPATH` environment variable value to be the path to the `yolov5` directory.
-   To do this run the following command:
+   Run the following command to do this:
 
    ```bash
    export PYTHONPATH=${PYTHONPATH}:${NNCF_ROOT}/nncf/ptq/examples/yolo_v5/yolov5

@@ -12,8 +12,8 @@
 """
 
 import os
-import argparse
 import subprocess
+from pathlib import Path
 import time
 from typing import Tuple
 
@@ -28,23 +28,26 @@ from nncf.common.utils.logger import logger as nncf_logger
 from nncf.ptq.examples.mobilenet_v2 import usercode
 
 
+FILE = Path(__file__).resolve()
+# Relative path to the `mobilenet_v2` directory.
+ROOT = Path(os.path.relpath(FILE.parent, Path.cwd()))
+# Path to the directory where the original and quantized IR will be saved.
+MODEL_DIR = ROOT.joinpath('mobilenet_v2_quantization')
+# Path to ImageNet validation dataset.
+DATASET_DIR = ROOT.joinpath('imagenet')
+
+
 def run_example():
     """
     Runs the MobileNetV2 quantization example.
     """
-    parser = create_parser()
-    args = parser.parse_args()
-
-    if not os.path.exists(args.example_dir):
-        os.makedirs(args.example_dir)
-
     # Step 1: Prepare OpenVINO model.
-    ir_model_xml, ir_model_bin = torch_to_openvino_model(args.example_dir)
+    ir_model_xml, ir_model_bin = torch_to_openvino_model()
     ie = Core()
     original_model = ie.read_model(model=ir_model_xml, weights=ir_model_bin)
 
     # Step 2: Create dataset.
-    data_source = create_val_dataset(args.dataset_dir)
+    data_source = create_val_dataset()
 
     # Step 3: Apply quantization algorithm.
 
@@ -62,66 +65,35 @@ def run_example():
 
     # Step 4: Save quantized model.
     model_name = 'mobilenet_v2_quantized'
-    ir_qmodel_xml = os.path.join(args.example_dir, f'{model_name}.xml')
-    ir_qmodel_bin = os.path.join(args.example_dir, f'{model_name}.bin')
-    openvino.offline_transformations.serialize(quantized_model, ir_qmodel_xml, ir_qmodel_bin)
+    ir_qmodel_xml = MODEL_DIR.joinpath(f'{model_name}.xml')
+    ir_qmodel_bin = MODEL_DIR.joinpath(f'{model_name}.bin')
+    openvino.offline_transformations.serialize(quantized_model, str(ir_qmodel_xml), str(ir_qmodel_bin))
 
-    # Step 5: Compare the accuracy of the original and quantized models
-    nncf_logger.info('Checking the accuracy of the original model:\n')
+    # Step 5: Compare the accuracy of the original and quantized models.
+    nncf_logger.info('Checking the accuracy of the original model:')
     original_compiled_model = ie.compile_model(original_model, device_name='CPU')
-    validate(data_source, original_compiled_model, args.print_freq)
+    validate(original_compiled_model, data_source)
 
-    nncf_logger.info('Checking the accuracy of the quantized model:\n')
+    nncf_logger.info('Checking the accuracy of the quantized model:')
     quantized_compiled_model = ie.compile_model(quantized_model, device_name='CPU')
-    validate(data_source, quantized_compiled_model, args.print_freq)
+    validate(quantized_compiled_model, data_source)
 
-    # Step 6: Compare Performance of the original and quantized models
-    # Commands:
+    # Step 6: Compare Performance of the original and quantized models.
     # benchmark_app -m mobilenet_v2_quantization/mobilenet_v2.xml -d CPU -api async
     # benchmark_app -m mobilenet_v2_quantization/mobilenet_v2_quantized.xml -d CPU -api async
 
 
-def create_parser():
-    """
-    Creates argument parser for the app.
-
-    :return: The `ArgumentParser` object.
-    """
-    parser = argparse.ArgumentParser(description='Quantization of the MobileNetV2 model')
-    parser.add_argument(
-        '--example_dir',
-        metavar='DIR',
-        nargs='?',
-        default='mobilenet_v2_quantization',
-        help='path to a directory where the quantized model will be saved (default: mobilenet_v2_quantization)'
-    )
-    parser.add_argument(
-        '--dataset_dir',
-        metavar='DIR',
-        nargs='?',
-        default='imagenet',
-        help='path to dataset (default: imagenet)'
-    )
-    parser.add_argument(
-        '--print_freq',
-        metavar='N',
-        default=10000,
-        type=int,
-        help='print frequency (default: 10000)'
-    )
-
-    return parser
-
-
-def torch_to_openvino_model(example_dir: str) -> Tuple[str, str]:
+def torch_to_openvino_model() -> Tuple[Path, Path]:
     """
     Converts PyTorch MobileNetV2 model to the OpenVINO IR format.
 
-    :param example_dir: Directory where OpenVINO IR model will be saved.
     :return: A tuple (ir_model_xml, ir_model_bin) where
         `ir_model_xml` - path to .xml file.
         `ir_model_bin` - path to .bin file.
     """
+    if not MODEL_DIR.exists():
+        os.makedirs(MODEL_DIR)
+
     # Step 1: Initialize model from the PyTorch Hub.
     # For more details, please see the [link](https://pytorch.org/hub/pytorch_vision_mobilenet_v2).
     model_name = 'mobilenet_v2'
@@ -129,28 +101,27 @@ def torch_to_openvino_model(example_dir: str) -> Tuple[str, str]:
     model.eval()
 
     # Step 2: Export PyTorch model to ONNX format.
-    onnx_model_path = os.path.join(example_dir, f'{model_name}.onnx')
+    onnx_model_path = MODEL_DIR.joinpath(f'{model_name}.onnx')
     dummy_input = torch.randn(1, 3, 224, 224)
     torch.onnx.export(model, dummy_input, onnx_model_path, verbose=False)
 
     # Step 3: Run Model Optimizer to convert ONNX model to OpenVINO IR.
-    mo_command = f'mo --framework onnx -m {onnx_model_path} --output_dir {example_dir}'
+    mo_command = f'mo --framework onnx -m {onnx_model_path} --output_dir {MODEL_DIR}'
     subprocess.call(mo_command, shell=True)
 
     # Step 4: Return path to IR model as result.
-    ir_model_xml = os.path.join(example_dir, f'{model_name}.xml')
-    ir_model_bin = os.path.join(example_dir, f'{model_name}.bin')
+    ir_model_xml = MODEL_DIR.joinpath(f'{model_name}.xml')
+    ir_model_bin = MODEL_DIR.joinpath(f'{model_name}.bin')
     return ir_model_xml, ir_model_bin
 
 
-def create_val_dataset(dataset_dir: str) -> torch.utils.data.Dataset:
+def create_val_dataset() -> torch.utils.data.Dataset:
     """
     Creates validation ImageNet dataset.
 
-    :param dataset_dir: Path to directory where ImageNet dataset is located.
     :return: The `torch.utils.data.Dataset` object.
     """
-    val_dir = os.path.join(dataset_dir, 'val')
+    val_dir = DATASET_DIR.joinpath('val')
     # Transformations were taken from [here](https://pytorch.org/hub/pytorch_vision_mobilenet_v2).
     preprocess = torchvision.transforms.Compose([
         torchvision.transforms.Resize(256),
@@ -173,7 +144,7 @@ def create_val_dataset(dataset_dir: str) -> torch.utils.data.Dataset:
 # }
 
 # AFTER {
-def validate(val_loader, model, print_freq: int):
+def validate(model, val_loader, print_freq: int = 10000):
     output_layer = next(iter(model.outputs))
 # }
     def run_validate(loader, base_progress=0):

@@ -46,7 +46,7 @@ def quantize(model: ModelType,
         bias correction method which is more accurate, in general, and takes
         more time but requires less memory.
     :param model_type: Model type is needed to specify additional patterns
-        in the model. Supported only `Transformer` now.
+        in the model. Supported only `transformer` now.
     :return: The quantized model.
     """
     backend = determine_backend(model)
