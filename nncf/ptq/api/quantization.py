@@ -25,7 +25,7 @@ def quantize(model: ModelType,
              target_device: str = 'ANY',
              subset_size: int = 300,
              fast_error_correction: bool = True,
-             model_type: Optional[str] = None):
+             model_type: Optional[str] = None) -> ModelType:
     """
     Applies post-training quantization algorithm to provided model.
 

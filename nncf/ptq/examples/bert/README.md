@@ -17,7 +17,7 @@ You should do the following steps to work with this example:
 
 2. Install additional requirements. We assume that `openvino-dev` and `nncf` have been already installed.
    ```bashx
-   pip isntall -r requirements.txt
+   pip install -r requirements.txt
    ```
 
 3. Run the example:
