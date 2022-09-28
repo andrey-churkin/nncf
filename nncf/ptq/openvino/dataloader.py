@@ -11,27 +11,59 @@
  limitations under the License.
 """
 
-from openvino.tools import pot
+from typing import Callable
 
-from nncf.ptq.data.dataloader import NNCFDataLoader
+from collections.abc import Sized
+
+from nncf.ptq.api.types import DataSource
+from nncf.ptq.api.types import DataItem
+from nncf.ptq.api.types import ModelInput
+from nncf.ptq.data.dataloader import NNCFDataLoaderImpl
 
 
-class POTDataLoader(pot.DataLoader):
+# TODO(andrey-churkin): The algorithms from the POT use the `__len__()` method.
+# It should be removed when we change all algorithms.
+class SizedNNCFDataLoaderImpl(Sized, NNCFDataLoaderImpl):
     """
-    Wraps NNCFDataloader to make it suitable for post-training optimization tool.
+    Adds the `__len__()` method to the `NNCFDataLoaderImpl`.
     """
 
-    def __init__(self, dataloader: NNCFDataLoader):
+    def __init__(self,
+                 data_source: DataSource,
+                 transform_fn: Callable[[DataItem], ModelInput],
+                 batch_size: int):
         """
-        Initializes a `POTDataLoader` instance.
+        Initializes the NNCF data loader.
 
-        :param dataloader: A `NNCFDataLoader` object.
+        :param data_source: The custom data source that is an iterable
+            python object.
+        :param transform_fn: Transformation method that takes a data item
+            returned per iteration through `data_source` object and transforms
+            it to the model's expected input that can be used for the model inference.
+        :param batch_size: An integer that represents the number of consecutive elements
+            of `data_source` that were combined in a single batch.
         """
-        super().__init__(config=None)
-        self._dataloader = dataloader
+        super().__init__(data_source, transform_fn, batch_size)
+        self._length = None
 
-    def __len__(self):
-        return len(self._dataloader)
+    def __len__(self) -> int:
+        if self._length is None:
+            self._length = _get_length(self._data_source)
+        return self._length
 
-    def __getitem__(self, index: int):
-        return (self._dataloader[index], None)
+
+def _get_length(data_source: DataSource) -> int:
+    """
+    Returns the length of the provided custom data source.
+
+    :param data_source: Custom data source that is an iterable python object.
+    :return: The length of the provided custom data source.
+    """
+    if isinstance(data_source, Sized):
+        return len(data_source)
+
+    length = 0
+    for _ in data_source:
+        length = length + 1
+
+    return length

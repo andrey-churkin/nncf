@@ -62,7 +62,7 @@ def run_example():
         inputs = {
             name: np.asarray(data_item[name], dtype=np.int64) for name in INPUT_NAMES
         }
-        return inputs
+        return [inputs]
 
     # Wrap framework-specific data source into `NNCFDataLoader` object.
     calibration_dataset = ptq.create_dataloader(data_source, transform_fn)

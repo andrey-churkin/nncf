@@ -11,147 +11,108 @@
  limitations under the License.
 """
 
-from typing import Optional
 from typing import Callable
-from typing import TypeVar
-from abc import ABC
-from abc import abstractmethod
+from typing import Iterable
+
+from nncf.ptq.api.types import DataSource
+from nncf.ptq.api.types import DataItem
+from nncf.ptq.api.types import ModelInput
+from nncf.ptq.api.dataloader import NNCFDataLoader
 
 
-DataSource = TypeVar('DataSource')
-
-
-class NNCFDataLoader(ABC):
+class NNCFDataLoaderImpl(NNCFDataLoader):
     """
-    The `NNCFDataLoader` provides input samples for the model.
-    The class describes the interface that is used by compression algorithms.
+    Implementation of the `NNCFDataLoader` for the case when
+    the custom data source is the [iterable](https://docs.python.org/3/glossary.html#term-iterable)
+    python object.
     """
 
-    @abstractmethod
-    def __len__(self):
+    def __init__(self,
+                 data_source: DataSource,
+                 transform_fn: Callable[[DataItem], ModelInput],
+                 batch_size: int):
         """
-        Returns the number of elements in the dataset.
+        Initializes the NNCF data loader.
 
-        :return: A number of elements in the dataset.
+        :param data_source: The custom data source that is an iterable
+            python object.
+        :param transform_fn: Transformation method that takes a data item
+            returned per iteration through `data_source` object and transforms
+            it to the model's expected input that can be used for the model inference.
+        :param batch_size: An integer that represents the number of consecutive elements
+            of `data_source` that were combined in a single batch.
         """
+        self._data_source = data_source
+        self._transform_fn = transform_fn
+        self._batch_size = batch_size
 
-    @abstractmethod
-    def __getitem__(self, index: int):
+    @property
+    def batch_size(self) -> int:
         """
-        Returns the `index`-th data item from the dataset.
+        Returns the number of elements return per iteration.
 
-        :param index: An integer index in the range from `0` to `len(self)`.
-        :return: The `index`-th data item from the dataset.
+        :return: A number of elements return per iteration.
         """
+        return self._batch_size
+
+    def transform(self, data: DataItem) -> ModelInput:
+        return self._transform_fn(data)
+
+    def __iter__(self) -> Iterable[DataItem]:
+        return iter(self._data_source)
 
 
 def create_dataloader(data_source: DataSource,
-                      transform_fn: Optional[Callable] = None) -> NNCFDataLoader:
+                      transform_fn: Callable[[DataItem], ModelInput]) -> NNCFDataLoader:
     """
-    Wraps a provided custom data source into `NNCFDataLoader` and makes
-    it suitable for use in compression algorithms.
+    Wraps the provided custom data source that is an [iterable](https://docs.python.org/3/glossary.html#term-iterable)
+    python object into `NNCFDataLoader` object.
 
-    :param data_source: An iterable python object. For more details
-        please see [iterable](https://docs.python.org/3/glossary.html#term-iterable).
-    :param transform_fn: A function that takes a data item from custom data source
-        and makes it suitable for model inference.
-    :return: A `NNCFDataLoader` object which wraps the custom data source.
+    :param data_source: Custom data source that is an iterable python object.
+    :param transform_fn: The method that takes a data item returned per iteration
+        through `data_source` object and transforms it to the model's expected input
+        that can be used for the model inference.
+    :return: The object that implements the `NNCFDataLoader` interface and
+        wraps custom data source.
     """
-    if hasattr(data_source, '__getitem__'):
-        return NNCFDataLoaderMapStyleImpl(data_source, transform_fn)
+    # Checks that `data_source` is an iterable python object.
+    try:
+        iter(data_source)
+    except TypeError as exc:
+        raise ValueError('The provided `data_source` object is not an iterable object. Please see '
+                         'https://docs.python.org/3/glossary.html#term-iterable to learn more '
+                         'about iterable object.') from exc
 
-    if hasattr(data_source, '__iter__'):
-        return NNCFDataLoaderIterableImpl(data_source, transform_fn)
+    batch_size = _get_batch_size(data_source)
 
-    raise ValueError('Unsupported type of data source.')
+    return NNCFDataLoaderImpl(data_source, transform_fn, batch_size)
 
 
-class NNCFDataLoaderMapStyleImpl(NNCFDataLoader):
+def _get_batch_size(data_source: DataSource) -> int:
     """
-    Wraps map-style data source into `NNCFDataLoader` object and makes
-    data items from it suitable for model inference. A map-style data
-    source is one that implements the `__getitem__()` and `__len__()`
-    protocols and represents a map from integer indices to data samples.
+    Tries to determine the batch size of the provided custom data source.
+    If it was successful returns the number of elements return per iteration
+    from the `data_source` or `1` otherwise.
+
+    :param data_source: Custom data source that is an iterable python object.
+    :return: The number of elements return per iteration from the `data_source` or `1`.
     """
+    try:
+        import torch
+    except ImportError:
+        torch = None
 
-    def __init__(self,
-                 data_source: DataSource,
-                 transform_fn: Optional[Callable] = None):
-        """
-        Initializes a wrapper for a map-style data source.
+    try:
+        import tensorflow
+    except ImportError:
+        tensorflow = None
 
-        :param data_source: A map-style data source.
-        :param transform_fn: A method that takes a data item from the data
-            source and transforms it into the model expected input.
-        """
-        self._data_source = data_source
-        self._transform_fn = transform_fn
+    batch_size = 1
 
-    def __getitem__(self, index: int):
-        sample = self._data_source[index]
-        if self._transform_fn:
-            sample = self._transform_fn(sample)
-        return sample
+    if torch is not None and isinstance(data_source, torch.utils.data.DataLoader):
+        batch_size = data_source.batch_size
 
-    def __len__(self):
-        return len(self._data_source)
+    if tensorflow is not None and isinstance(data_source, tensorflow.data.Dataset):
+        batch_size = getattr(data_source, '_batch_size', batch_size)
 
-
-# TODO(andrey-churkin): Implementation should be tested.
-# We should check that everything works for the TensorFlow backend.
-class NNCFDataLoaderIterableImpl(NNCFDataLoader):
-    """
-    Wraps iterable-style data source into `NNCFDataLoader` object and
-    makes data items from it suitable for model inference. An iterable-style
-    data source is one that implements `__iter__()` and represents an iterable
-    object over data samples.
-    """
-
-    def __init__(self,
-                 data_source: DataSource,
-                 transform_fn: Optional[Callable] = None):
-        """
-        Initializes a wrapper for a iterable-style data source.
-
-        :param data_source: An iterable-style data source.
-        :param transform_fn: A method that takes a data item from the data
-            source and transforms it into the model expected input.
-        """
-        self._data_source = data_source
-        self._transform_fn = transform_fn
-
-        self._size = None
-        self._it = None
-        self._elem = None
-        self._elem_idx = -1
-
-    def __getitem__(self, index: int):
-        if index == self._elem_idx:
-            return self._elem
-
-        if self._it is None or index < self._elem_idx:
-            self._it = iter(self._data_source)
-
-        while self._elem_idx != index:
-            try:
-                self._elem = next(self._it)
-                self._elem_idx = self._elem_idx + 1
-            except StopIteration:
-                self._it = None
-                self._elem = None
-                self._elem_idx = -1
-                break
-
-        if self._elem is None:
-            raise IndexError('Index out of range.')
-
-        output = self._elem
-        if self._transform_fn is not None:
-            output = self._transform_fn(output)
-
-        return output
-
-    def __len__(self):
-        if self._size is None:
-            self._size = len(self._data_source)
-        return self._size
+    return batch_size

@@ -47,7 +47,7 @@ def run_example():
     original_model = ie.read_model(model=ir_model_xml, weights=ir_model_bin)
 
     # Step 2: Create dataset.
-    data_source = create_val_dataset()
+    data_source = create_val_dataloader()
 
     # Step 3: Apply quantization algorithm.
 
@@ -59,9 +59,9 @@ def run_example():
         return images.numpy()
 
     # Wrap framework-specific data source into `NNCFDataLoader` object.
-    calibration_dataset = ptq.create_dataloader(data_source, transform_fn)
+    validation_dataset = ptq.create_dataloader(data_source, transform_fn)
 
-    quantized_model = ptq.quantize(original_model, calibration_dataset)
+    quantized_model = ptq.quantize(original_model, validation_dataset)
 
     # Step 4: Save quantized model.
     model_name = 'mobilenet_v2_quantized'
@@ -72,11 +72,11 @@ def run_example():
     # Step 5: Compare the accuracy of the original and quantized models.
     nncf_logger.info('Checking the accuracy of the original model:')
     original_compiled_model = ie.compile_model(original_model, device_name='CPU')
-    validate(original_compiled_model, data_source)
+    validate(original_compiled_model, validation_dataset)
 
     nncf_logger.info('Checking the accuracy of the quantized model:')
     quantized_compiled_model = ie.compile_model(quantized_model, device_name='CPU')
-    validate(quantized_compiled_model, data_source)
+    validate(quantized_compiled_model, validation_dataset)
 
     # Step 6: Compare Performance of the original and quantized models.
     # benchmark_app -m mobilenet_v2_quantization/mobilenet_v2.xml -d CPU -api async
@@ -115,11 +115,11 @@ def torch_to_openvino_model() -> Tuple[Path, Path]:
     return ir_model_xml, ir_model_bin
 
 
-def create_val_dataset() -> torch.utils.data.Dataset:
+def create_val_dataloader() -> torch.utils.data.DataLoader:
     """
-    Creates validation ImageNet dataset.
+    Creates validation ImageNet data loader.
 
-    :return: The `torch.utils.data.Dataset` object.
+    :return: The `torch.utils.data.DataLoader` object.
     """
     val_dir = DATASET_DIR.joinpath('val')
     # Transformations were taken from [here](https://pytorch.org/hub/pytorch_vision_mobilenet_v2).
@@ -130,8 +130,11 @@ def create_val_dataset() -> torch.utils.data.Dataset:
         torchvision.transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
     ])
     val_dataset = torchvision.datasets.ImageFolder(val_dir, preprocess)
-
-    return val_dataset
+    val_dataloader = torch.utils.data.DataLoader(val_dataset,
+                                                 batch_size=1,
+                                                 shuffle=False,
+                                                 num_workers=4)
+    return val_dataloader
 
 
 # This method was taken as is from the pythorch repository.
@@ -160,8 +163,7 @@ def validate(model, val_loader, print_freq: int = 10000):
                 # }
 
                 # AFTER {
-                target = torch.from_numpy(np.expand_dims(np.array([target]), 0))
-                input_data = np.expand_dims(images.numpy(), 0).astype(np.float32)
+                input_data = loader.transform((images, target))
                 output = torch.from_numpy(
                     model([input_data])[output_layer]
                 )
@@ -183,8 +185,9 @@ def validate(model, val_loader, print_freq: int = 10000):
     top1 = usercode.AverageMeter('Acc@1', ':6.2f', usercode.Summary.AVERAGE)
     top5 = usercode.AverageMeter('Acc@5', ':6.2f', usercode.Summary.AVERAGE)
 
+    NUM_BATCHES = 50000 // val_loader.batch_size
     progress = usercode.ProgressMeter(
-        len(val_loader), [batch_time, top1, top5], prefix='Test: '
+        NUM_BATCHES, [batch_time, top1, top5], prefix='Test: '
     )
     run_validate(val_loader)
     progress.display_summary()

@@ -48,7 +48,7 @@ def run_example():
     original_model = ie.read_model(model=ir_model_xml, weights=ir_model_bin)
 
     # Step 2: Create dataset.
-    data_source = create_val_dataset()
+    data_source = create_val_dataloader()
 
     # Step 3: Apply quantization algorithm.
 
@@ -136,12 +136,12 @@ def torch_to_openvino_model() -> Tuple[Path, Path]:
     return ir_model_xml, ir_model_bin
 
 
-def create_val_dataset() -> torch.utils.data.Dataset:
+def create_val_dataloader() -> torch.utils.data.DataLoader:
     """
-    Creates COCO 2017 validation dataset. The method downloads COCO 2017
+    Creates COCO 2017 validation data loader. The method downloads COCO 2017
     dataset if it does not exist.
 
-    :return: The `torch.utils.data.Dataset` object.
+    :return: The `torch.utils.data.DataLoader` object.
     """
     if not ROOT.joinpath('datasets', 'coco').exists():
         urls = ['https://github.com/ultralytics/yolov5/releases/download/v1.0/coco2017labels.zip']
@@ -151,14 +151,14 @@ def create_val_dataset() -> torch.utils.data.Dataset:
         download(urls, dir=ROOT.joinpath('datasets', 'coco', 'images'))
 
     data = check_dataset(DATASET_CONFIG)
-    val_dataset = create_dataloader(data['val'],
-                                    imgsz=640,
-                                    batch_size=1,
-                                    stride=32,
-                                    pad=0.5,
-                                    workers=1)[1]
+    val_dataloader = create_dataloader(data['val'],
+                                       imgsz=640,
+                                       batch_size=1,
+                                       stride=32,
+                                       pad=0.5,
+                                       workers=1)[0]
 
-    return val_dataset
+    return val_dataloader
 
 
 if __name__ == '__main__':
