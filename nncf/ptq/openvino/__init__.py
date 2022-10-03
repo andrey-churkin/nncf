@@ -12,3 +12,4 @@
 """
 
 from nncf.ptq.openvino.quantization import quantize_impl
+from nncf.ptq.openvino.quantization import quantize_with_accuracy_control_impl

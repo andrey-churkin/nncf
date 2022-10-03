@@ -73,7 +73,7 @@ def run_example():
     model_name = 'bert_base_mrpc_quantized'
     ir_qmodel_xml = MODEL_DIR.joinpath(f'{model_name}.xml')
     ir_qmodel_bin = MODEL_DIR.joinpath(f'{model_name}.bin')
-    openvino.offline_transformations.serialize(quantized_model, str(ir_qmodel_xml), str(ir_qmodel_bin))
+    openvino.runtime.serialize(quantized_model, str(ir_qmodel_xml), str(ir_qmodel_bin))
 
     # Step 5: Compare the accuracy of the original and quantized models.
     nncf_logger.info('Checking the accuracy of the original model:')

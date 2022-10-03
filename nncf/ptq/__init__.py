@@ -12,4 +12,5 @@
 """
 
 from nncf.ptq.api.quantization import quantize
+from nncf.ptq.api.quantization import quantize_with_accuracy_control
 from nncf.ptq.data.dataloader import create_dataloader
