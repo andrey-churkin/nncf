@@ -139,7 +139,6 @@ class CustomEngine(pot.IEEngine):
                 dataloader = self._data_loader
             else:
                 dataloader = _pot_sampler_to_nncf_dataloader(sampler)
-            compiled_model = self._ie.compile_model(self._model, self._device)
-            self._metric.avg_type = self._validation_fn(compiled_model, dataloader)
+            self._metric.avg_value = self._validation_fn(self._model, dataloader)
 
         return super().predict(stats_layout, sampler, stat_aliases, metric_per_sample, print_progress)
