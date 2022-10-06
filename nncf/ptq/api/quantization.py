@@ -64,7 +64,6 @@ def quantize_with_accuracy_control(model: ModelType,
                                    validation_dataset: NNCFDataLoader,
                                    validation_fn: Callable[[ModelType, NNCFDataLoader], float],
                                    max_drop: float = 0.01,
-                                   higher_better: bool = True,
                                    preset: str = 'performance',
                                    target_device: str = 'ANY',
                                    subset_size: int = 300,
@@ -81,11 +80,9 @@ def quantize_with_accuracy_control(model: ModelType,
         - `model`: model to be validate.
         - `validation_dataset`: validation dataloder that provides data items to
               validate the provided model.
+        The function should return the value of the metric with the following meaning:
+        A higher value corresponds to better performance of the model.
     :param max_drop: The maximum accuracy drop that should be achieved after the quantization.
-    :param higher_better: Boolean flag that determines the metric's direction. Takes one
-        of the following:
-            - `True`: if a higher value of the metric corresponds to better performance.
-            - `False`: if a higher value of the metric corresponds to worse performance.
     :param preset: A preset that controls the quantization mode
         (symmetric and asymmetric). It can take the following values:
         - `performance`: Symmetric quantization of weights and activations.
@@ -107,7 +104,7 @@ def quantize_with_accuracy_control(model: ModelType,
     if backend == BackendType.OPENVINO:
         from nncf.ptq.openvino import quantize_with_accuracy_control_impl
         return quantize_with_accuracy_control_impl(model, calibration_dataset, validation_dataset, validation_fn,
-                                                   max_drop, higher_better, preset, target_device, subset_size,
+                                                   max_drop, preset, target_device, subset_size,
                                                    fast_error_correction, model_type)
 
     raise RuntimeError(f'Unsupported type of backend: {backend}')

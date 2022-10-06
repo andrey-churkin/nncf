@@ -77,9 +77,8 @@ class CustomEngine(pot.IEEngine):
                  config,
                  calibration_dataloader: NNCFDataLoader,
                  validation_dataloader: NNCFDataLoader,
-                 validation_fn: Optional[Callable[[ModelType, NNCFDataLoader], float]] = None,
-                 higher_better: bool = True):
-        metric = CustomMetric(higher_better) if validation_fn is not None else None
+                 validation_fn: Optional[Callable[[ModelType, NNCFDataLoader], float]] = None):
+        metric = CustomMetric() if validation_fn is not None else None
         super().__init__(config, validation_dataloader, metric)
         self._calibration_dataloader = calibration_dataloader  #TODO(andrey-churkin): Not used now.
         self._validation_dataloader = validation_dataloader

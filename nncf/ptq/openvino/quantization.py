@@ -100,7 +100,6 @@ def quantize_with_accuracy_control_impl(model: openvino.runtime.Model,
                                         validation_dataset: NNCFDataLoader,
                                         validation_fn: Callable[[openvino.runtime.Model, NNCFDataLoader], float],
                                         max_drop: float = 0.01,
-                                        higher_better: bool = True,
                                         preset: str = 'performance',
                                         target_device: str = 'ANY',
                                         subset_size: int = 300,
@@ -138,7 +137,7 @@ def quantize_with_accuracy_control_impl(model: openvino.runtime.Model,
                                              validation_dataset._transform_fn,
                                              validation_dataset.batch_size)
 
-    engine = CustomEngine(engine_config, calibration_dataset, val_dataloader, validation_fn, higher_better)
+    engine = CustomEngine(engine_config, calibration_dataset, val_dataloader, validation_fn)
     pipeline = pot.create_pipeline(algorithms, engine)
     compressed_model = pipeline.run(pot_model)
     pot.compress_model_weights(compressed_model)
