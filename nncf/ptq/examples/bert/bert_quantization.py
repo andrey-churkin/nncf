@@ -166,8 +166,7 @@ def validate(model: openvino.runtime.Model, data_source: datasets.Dataset) -> fl
         ]
         outputs = model(inputs)[output_layer]
         predictions = outputs[0].argmax(axis=-1)
-        predictions, references = predictions, batch['labels']
-        metric.add_batch(predictions=[predictions], references=[references])
+        metric.add_batch(predictions=[predictions], references=[batch['labels']])
     metrics = metric.compute()
 
     f1_score = metrics['f1']
