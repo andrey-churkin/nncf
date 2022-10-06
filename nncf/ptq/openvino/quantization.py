@@ -11,6 +11,8 @@
  limitations under the License.
 """
 
+import tempfile
+from pathlib import Path
 from typing import Optional
 from typing import Callable
 
@@ -20,6 +22,29 @@ from openvino.tools import pot
 from nncf.ptq.data.dataloader import NNCFDataLoader
 from nncf.ptq.openvino.dataloader import SizedNNCFDataLoaderImpl
 from nncf.ptq.openvino.engine import CustomEngine
+
+
+def _convert_openvino_model_to_compressed_model(model: openvino.runtime.Model,
+                                                target_device: str) -> pot.graph.nx_model.CompressedModel:
+    """
+    Serializes the provided OpenVINO model and loads the model in the POT representation.
+
+    :param model: The OpenVINO model.
+    :param target_device: The target device.
+    :return: The POT representation of the provided model.
+    """
+    with tempfile.TemporaryDirectory(dir=tempfile.gettempdir()) as tmp_dir:
+        xml_path = str(Path(tmp_dir).joinpath('model.xml'))
+        bin_path = str(Path(tmp_dir).joinpath('model.bin'))
+        openvino.runtime.serialize(model, xml_path, bin_path)
+        model_config = {
+            'model_name': 'model',
+            'model': xml_path,
+            'weights': bin_path,
+        }
+        pot_model = pot.load_model(model_config, target_device)
+
+    return pot_model
 
 
 def quantize_impl(model: openvino.runtime.Model,
@@ -32,15 +57,7 @@ def quantize_impl(model: openvino.runtime.Model,
     """
     Implementation of the `quantize()` method for the OpenVINO backend.
     """
-    ir_model_xml = '/tmp/model.xml'
-    ir_model_bin = '/tmp/model.bin'
-    openvino.runtime.serialize(model, ir_model_xml, ir_model_bin)
-
-    model_config = {
-        'model_name': 'model',
-        'model': ir_model_xml,
-        'weights': ir_model_bin,
-    }
+    pot_model = _convert_openvino_model_to_compressed_model(model, target_device)
 
     engine_config = {
         'device': 'CPU',
@@ -61,7 +78,6 @@ def quantize_impl(model: openvino.runtime.Model,
         }
     ]
 
-    pot_model = pot.load_model(model_config)
     pot_dataloader = SizedNNCFDataLoaderImpl(calibration_dataset,
                                              calibration_dataset._transform_fn,
                                              calibration_dataset.batch_size)
@@ -93,15 +109,7 @@ def quantize_with_accuracy_control_impl(model: openvino.runtime.Model,
     """
     Implementation of the `quantize_with_accuracy_control()` method for the OpenVINO backend.
     """
-    ir_model_xml = '/tmp/model.xml'
-    ir_model_bin = '/tmp/model.bin'
-    openvino.runtime.serialize(model, ir_model_xml, ir_model_bin)
-
-    model_config = {
-        'model_name': 'model',
-        'model': ir_model_xml,
-        'weights': ir_model_bin,
-    }
+    pot_model = _convert_openvino_model_to_compressed_model(model, target_device)
 
     engine_config = {
         'device': 'CPU',
@@ -126,7 +134,6 @@ def quantize_with_accuracy_control_impl(model: openvino.runtime.Model,
         }
     ]
 
-    pot_model = pot.load_model(model_config)
     val_dataloader = SizedNNCFDataLoaderImpl(validation_dataset,
                                              validation_dataset._transform_fn,
                                              validation_dataset.batch_size)
