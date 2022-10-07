@@ -13,13 +13,17 @@
 
 from typing import Optional
 from typing import Callable
+from time import time
 
+from openvino.runtime import AsyncInferQueue
 from openvino.tools import pot
 
 from nncf.ptq.api.types import ModelType
 from nncf.ptq.api.dataloader import NNCFDataLoader
 from nncf.ptq.data.utils import create_subset
 
+
+logger = pot.utils.logger.get_logger(__name__)
 
 class DummyMetric(pot.Metric):
     def __init__(self, higher_better: bool = True):
@@ -101,6 +105,46 @@ class CustomEngine(pot.IEEngine):
             input_data = dataloader.transform(data)
             outputs = infer_request.infer(self._fill_input(compiled_model, input_data))
             self._process_infer_output(stats_layout, outputs, None, None, need_metrics_per_sample)
+
+    def _process_dataset_async(self,
+                               stats_layout,
+                               sampler,
+                               print_progress=False,
+                               need_metrics_per_sample=False,
+                               requests_num=0):
+        total_length = len(sampler)
+        dataloader = _pot_sampler_to_nncf_dataloader(sampler)
+
+        def completion_callback(request, user_data):
+            start_time, batch_id = user_data
+            self._process_infer_output(stats_layout, request.results, None, None, need_metrics_per_sample)
+
+            # Print progress
+            if self._print_inference_progress(progress_log_fn, batch_id, total_length, start_time, time()):
+                start_time = time()
+
+        progress_log_fn = logger.info if print_progress else logger.debug
+        self._ie.set_property(self._device,
+                              {'CPU_THROUGHPUT_STREAMS': 'CPU_THROUGHPUT_AUTO', 'CPU_BIND_THREAD': 'YES'})
+        # Load model to the plugin
+        compiled_model = self._ie.compile_model(model=self._model, device_name=self._device)
+        optimal_requests_num = compiled_model.get_property('OPTIMAL_NUMBER_OF_INFER_REQUESTS')
+        requests_num = optimal_requests_num if requests_num == 0 else requests_num
+        logger.debug('Async mode requests number: %d', requests_num)
+        infer_queue = AsyncInferQueue(compiled_model, requests_num)
+
+        progress_log_fn('Start inference of %d images', total_length)
+
+        dataloader_iter = iter(enumerate(dataloader))
+        # Start inference
+        start_time = time()
+        infer_queue.set_callback(completion_callback)
+        for batch_id, data in dataloader_iter:
+            input_data = dataloader.transform(data)
+            user_data = (start_time, batch_id)
+            infer_queue.start_async(self._fill_input(compiled_model, input_data), user_data)
+        infer_queue.wait_all()
+        progress_log_fn('Inference finished')
 
     def _process_infer_output(self,
                               stats_layout,

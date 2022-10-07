@@ -61,8 +61,8 @@ def quantize_impl(model: openvino.runtime.Model,
 
     engine_config = {
         'device': 'CPU',
-        'stat_requests_number': 1,
-        'eval_requests_number': 1,
+        'stat_requests_number': 2,
+        'eval_requests_number': 2,
     }
 
     algorithms = [
@@ -112,8 +112,8 @@ def quantize_with_accuracy_control_impl(model: openvino.runtime.Model,
 
     engine_config = {
         'device': 'CPU',
-        'stat_requests_number': 1,
-        'eval_requests_number': 1,
+        'stat_requests_number': 2,
+        'eval_requests_number': 2,
     }
 
     algorithms = [
