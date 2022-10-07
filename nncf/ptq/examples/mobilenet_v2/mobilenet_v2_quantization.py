@@ -25,7 +25,7 @@ import numpy as np
 
 from nncf import ptq
 from nncf.common.utils.logger import logger as nncf_logger
-from nncf.ptq.examples.mobilenet_v2 import usercode
+from nncf.ptq.examples.mobilenet_v2 import utils
 
 
 FILE = Path(__file__).resolve()
@@ -170,7 +170,7 @@ def validate(model, val_loader, print_freq: int = 10000):
                 # }
 
                 # measure accuracy
-                acc1, acc5 = usercode.accuracy(output, target, topk=(1, 5))
+                acc1, acc5 = utils.accuracy(output, target, topk=(1, 5))
                 top1.update(acc1[0], images.size(0))
                 top5.update(acc5[0], images.size(0))
 
@@ -181,12 +181,12 @@ def validate(model, val_loader, print_freq: int = 10000):
                 if i % print_freq == 0:
                     progress.display(i + 1)
 
-    batch_time = usercode.AverageMeter('Time', ':6.3f', usercode.Summary.NONE)
-    top1 = usercode.AverageMeter('Acc@1', ':6.2f', usercode.Summary.AVERAGE)
-    top5 = usercode.AverageMeter('Acc@5', ':6.2f', usercode.Summary.AVERAGE)
+    batch_time = utils.AverageMeter('Time', ':6.3f', utils.Summary.NONE)
+    top1 = utils.AverageMeter('Acc@1', ':6.2f', utils.Summary.AVERAGE)
+    top5 = utils.AverageMeter('Acc@5', ':6.2f', utils.Summary.AVERAGE)
 
     NUM_BATCHES = 50000 // val_loader.batch_size
-    progress = usercode.ProgressMeter(
+    progress = utils.ProgressMeter(
         NUM_BATCHES, [batch_time, top1, top5], prefix='Test: '
     )
     run_validate(val_loader)

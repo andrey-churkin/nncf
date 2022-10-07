@@ -20,7 +20,7 @@ import openvino
 from openvino.tools import pot
 
 from nncf.ptq.data.dataloader import NNCFDataLoader
-from nncf.ptq.openvino.dataloader import SizedNNCFDataLoaderImpl
+from nncf.ptq.openvino.dataloader import POTDataLoader
 from nncf.ptq.openvino.engine import CustomEngine
 
 
@@ -78,9 +78,9 @@ def quantize_impl(model: openvino.runtime.Model,
         }
     ]
 
-    pot_dataloader = SizedNNCFDataLoaderImpl(calibration_dataset,
-                                             calibration_dataset._transform_fn,
-                                             calibration_dataset.batch_size)
+    pot_dataloader = POTDataLoader(calibration_dataset,
+                                   calibration_dataset._transform_fn,
+                                   calibration_dataset.batch_size)
     engine = CustomEngine(engine_config, pot_dataloader, pot_dataloader)
     pipeline = pot.create_pipeline(algorithms, engine)
     compressed_model = pipeline.run(pot_model)
@@ -133,9 +133,9 @@ def quantize_with_accuracy_control_impl(model: openvino.runtime.Model,
         }
     ]
 
-    val_dataloader = SizedNNCFDataLoaderImpl(validation_dataset,
-                                             validation_dataset._transform_fn,
-                                             validation_dataset.batch_size)
+    val_dataloader = POTDataLoader(validation_dataset,
+                                   validation_dataset._transform_fn,
+                                   validation_dataset.batch_size)
 
     engine = CustomEngine(engine_config, calibration_dataset, val_dataloader, validation_fn)
     pipeline = pot.create_pipeline(algorithms, engine)

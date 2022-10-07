@@ -23,7 +23,7 @@ from nncf.ptq.data.dataloader import NNCFDataLoaderImpl
 
 # TODO(andrey-churkin): The algorithms from the POT use the `__len__()` method.
 # It should be removed when we change all algorithms.
-class SizedNNCFDataLoaderImpl(Sized, NNCFDataLoaderImpl):
+class POTDataLoader(Sized, NNCFDataLoaderImpl):
     """
     Adds the `__len__()` method to the `NNCFDataLoaderImpl`.
     """

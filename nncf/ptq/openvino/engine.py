@@ -21,7 +21,7 @@ from nncf.ptq.api.dataloader import NNCFDataLoader
 from nncf.ptq.data.utils import create_subset
 
 
-class CustomMetric(pot.Metric):
+class DummyMetric(pot.Metric):
     def __init__(self, higher_better: bool = True):
         self._name = 'custom_metric'
         self._higher_better = higher_better
@@ -78,7 +78,7 @@ class CustomEngine(pot.IEEngine):
                  calibration_dataloader: NNCFDataLoader,
                  validation_dataloader: NNCFDataLoader,
                  validation_fn: Optional[Callable[[ModelType, NNCFDataLoader], float]] = None):
-        metric = CustomMetric() if validation_fn is not None else None
+        metric = DummyMetric() if validation_fn is not None else None
         super().__init__(config, validation_dataloader, metric)
         self._calibration_dataloader = calibration_dataloader  #TODO(andrey-churkin): Not used now.
         self._validation_dataloader = validation_dataloader
