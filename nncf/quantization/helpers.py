@@ -12,6 +12,9 @@
 """
 
 from typing import Optional
+from typing import Iterable
+from typing import Callable
+from typing import Any
 
 from nncf.api.compression import ModelType
 from nncf.common.utils.backend import get_backend
@@ -56,5 +59,55 @@ def quantize(model: ModelType,
         from nncf.openvino.quantization.helpers import quantize_impl
         return quantize_impl(model, calibration_dataset, preset, target_device, subset_size,
                              fast_error_correction, model_type)
+
+    raise RuntimeError(f'Unsupported type of backend: {backend}')
+
+
+def quantize_with_accuracy_control(model: ModelType,
+                                   calibration_dataset: Dataset,
+                                   validation_dataset: Dataset,
+                                   validation_fn: Callable[[ModelType, Iterable[Any]], float],
+                                   max_drop: float = 0.01,
+                                   preset: QuantizationPreset = QuantizationPreset.PERFORMANCE,
+                                   target_device: TargetDevice = TargetDevice.ANY,
+                                   subset_size: int = 300,
+                                   fast_error_correction: bool = True,
+                                   model_type: Optional[str] = None) -> ModelType:
+    """
+    Applies post-training quantization algorithm with accuracy control to provided model.
+    :param model: A model to be quantized.
+    :param calibration_dataset: A representative dataset for the calibration process.
+    :param validation_dataset: A dataset for the validation process.
+    :param validation_fn: A validation function to validate the model. It should take
+        two argumets:
+        - `model`: model to be validate.
+        - `validation_dataset`: validation dataloder that provides data items to
+              validate the provided model.
+        The function should return the value of the metric with the following meaning:
+        A higher value corresponds to better performance of the model.
+    :param max_drop: The maximum accuracy drop that should be achieved after the quantization.
+    :param preset: A preset that controls the quantization mode
+        (symmetric and asymmetric). It can take the following values:
+        - `performance`: Symmetric quantization of weights and activations.
+        - `mixed`: Symmetric quantization of weights and asymmetric
+          quantization of activations.
+    :param target_device: A target device the specificity of which will
+        be taken into account during optimization It can the take
+        following values: `ANY`, `CPU`, `GPU`, `GNA`.
+    :param subset_size: Size of a subset to calculate activations
+        statistics used for quantization.
+    :param fast_error_correction: Setting this option to `False` enables a different
+        bias correction method which is more accurate, in general, and takes
+        more time but requires less memory.
+    :param model_type: Model type is needed to specify additional patterns
+        in the model. Supported only `transformer` now.
+    :return: The quantized model.
+    """
+    backend = get_backend(model)
+    if backend == BackendType.OPENVINO:
+        from nncf.openvino.quantization.helpers import quantize_with_accuracy_control_impl
+        return quantize_with_accuracy_control_impl(model, calibration_dataset, validation_dataset, validation_fn,
+                                                   max_drop, preset, target_device, subset_size,
+                                                   fast_error_correction, model_type)
 
     raise RuntimeError(f'Unsupported type of backend: {backend}')

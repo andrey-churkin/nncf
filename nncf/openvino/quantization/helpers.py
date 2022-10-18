@@ -13,6 +13,9 @@
 
 import tempfile
 from pathlib import Path
+from typing import Iterable
+from typing import Any
+from typing import Callable
 from typing import Optional
 import logging
 
@@ -102,6 +105,58 @@ def quantize_impl(model: ov.Model,
 
     pot_dataloader = POTDataLoader(calibration_dataset)
     engine = OVEngine(engine_config, pot_dataloader, pot_dataloader)
+    pipeline = pot.create_pipeline(algorithms, engine)
+    compressed_model = pipeline.run(pot_model)
+    pot.compress_model_weights(compressed_model)
+
+    quantized_model = _convert_compressed_model_to_openvino_model(compressed_model)
+
+    return quantized_model
+
+
+def quantize_with_accuracy_control_impl(model: ov.Model,
+                                        calibration_dataset: Dataset,
+                                        validation_dataset: Dataset,
+                                        validation_fn: Callable[[ov.Model, Iterable[Any]], float],
+                                        max_drop: float = 0.01,
+                                        preset: QuantizationPreset = QuantizationPreset.PERFORMANCE,
+                                        target_device: TargetDevice = TargetDevice.ANY,
+                                        subset_size: int = 300,
+                                        fast_error_correction: bool = True,
+                                        model_type: Optional[str] = None) -> ov.Model:
+    """
+    Implementation of the `quantize_with_accuracy_control()` method for the OpenVINO backend.
+    """
+    pot.utils.logger.init_logger(
+        level=logging.getLevelName(nncf_logger.getEffectiveLevel())
+    )
+    pot_model = _convert_openvino_model_to_compressed_model(model, target_device)
+
+    engine_config = {
+        'device': 'CPU',
+        'stat_requests_number': 2,
+        'eval_requests_number': 2,
+    }
+
+    algorithms = [
+        {
+            'name': 'AccuracyAwareQuantization',
+            'params': {
+                'target_device': target_device.value,
+                'stat_subset_size': subset_size,
+                'maximal_drop': max_drop,
+                'force_logit_comparison': True,
+                'logit_distance_type': 'nmse',
+                'metric_subset_ratio': 0.5,
+                'preset': preset.value,
+                'use_fast_bias': fast_error_correction,
+                'model_type': model_type,
+            }
+        }
+    ]
+
+    pot_dataloader = POTDataLoader(validation_dataset)
+    engine = OVEngine(engine_config, calibration_dataset, pot_dataloader, validation_fn)
     pipeline = pot.create_pipeline(algorithms, engine)
     compressed_model = pipeline.run(pot_model)
     pot.compress_model_weights(compressed_model)

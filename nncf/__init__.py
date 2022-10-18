@@ -15,6 +15,7 @@ from nncf.config import NNCFConfig
 from nncf.version import __version__
 
 from nncf.quantization import quantize
+from nncf.quantization import quantize_with_accuracy_control
 from nncf.quantization import TargetDevice
 from nncf.quantization import QuantizationPreset
 from nncf.data import Dataset

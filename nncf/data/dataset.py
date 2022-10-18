@@ -112,6 +112,7 @@ class DataProvider(Generic[DataItem, ModelInput]):
                                indices: List[int]):
         pos = 0
         num_indices = len(indices)
+        indices = sorted(indices)
         for idx, data_item in enumerate(data_source):
             if pos == num_indices:
                 # All specified data items were selected.
