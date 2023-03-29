@@ -69,8 +69,10 @@ class Evaluator(ABC):
             self._check()
             if self._metrics_for_each_item:
                 self._lru_cache.put(model, self._metrics_for_each_item)
+                self._metrics_for_each_item = []
             else:  # self._logits_for_each_item is not empty
                 self._lru_cache.put(model, self._logits_for_each_item)
+                self._logits_for_each_item = []
         return metric
 
     def _check(self):
