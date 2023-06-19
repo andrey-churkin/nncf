@@ -143,6 +143,53 @@ def get_model_accuracy(model_fn, model_params, nncf_config, validation_dataset, 
         return 100 * results["acc@1"]
 
 
+def openvino_native_experiment(model, validation_dataset):
+    import nncf
+    import openvino.runtime as ov
+    from nncf.common.quantization.structs import QuantizationPreset
+    from nncf.parameters import TargetDevice
+    from nncf import Dataset
+    import subprocess
+
+    save_dir = Path("./mnetv3")
+    frozen_graph_path = save_dir / "frozen_graph.pb"
+    if not frozen_graph_path.exists():
+        export_model(model, frozen_graph_path, "frozen_graph")
+
+    # for simple commands
+    ir_dir = save_dir / "ir"
+    xml_path = ir_dir / "frozen_graph.xml"
+    if not xml_path.exists():
+        cmd_str = (
+            f"mo --framework tf --use_new_frontend --input_shape [1,224,224,3] "
+            f"--input_model {frozen_graph_path} --output_dir {ir_dir} --reverse_input_channels"
+        )
+        subprocess.run(cmd_str, shell=True)
+
+
+    def transform_fn(data_item):
+        images, _ = data_item
+        return images.numpy()
+    calibration_dataset = nncf.Dataset(validation_dataset, transform_fn)
+
+    ov_model = ov.Core().read_model(xml_path)
+
+    from nncf.quantization.advanced_parameters import AdvancedQuantizationParameters
+    from nncf.openvino.quantization.backend_parameters import BackendParameters
+    params = AdvancedQuantizationParameters(backend_params={BackendParameters.COMPRESS_WEIGHTS: False})
+
+    quantized_model = nncf.quantize(
+        ov_model,
+        calibration_dataset,
+        preset=QuantizationPreset.MIXED,
+        subset_size=300,
+        fast_bias_correction=True,
+        advanced_parameters=params
+    )
+
+    ov.serialize(quantized_model, str(save_dir / "quantized_ir_mixed/openvino_develop.xml"))
+
+
 def run(config):
     if config.disable_tensor_float_32_execution:
         tf.config.experimental.enable_tensor_float_32_execution(False)
@@ -163,6 +210,9 @@ def run(config):
 
     train_builder, validation_builder = get_dataset_builders(config, strategy.num_replicas_in_sync)
     train_dataset, validation_dataset = train_builder.build(), validation_builder.build()
+
+    openvino_native_experiment(model_fn(**model_params), validation_dataset)
+    exit(0)
 
     nncf_config = register_default_init_args(
         nncf_config=config.nncf_config, data_loader=train_dataset, batch_size=train_builder.global_batch_size
