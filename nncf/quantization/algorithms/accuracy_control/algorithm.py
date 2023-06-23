@@ -45,7 +45,7 @@ def get_algo_backend(backend: BackendType) -> AccuracyControlAlgoBackend:
         return OVAccuracyControlAlgoBackend()
 
     raise RuntimeError(
-        "Cannot create the backend for the accuracy control algorithm " f"because {backend} is not supported."
+        f"Cannot create the backend for the accuracy control algorithm because {backend} is not supported."
     )
 
 

@@ -14,9 +14,9 @@ from typing import Dict, Optional, TypeVar
 import numpy as np
 
 from nncf import Dataset
+from nncf.common.factory import StatisticsAggregatorFactory
 from nncf.common.logging import nncf_logger
 from nncf.common.quantization.structs import QuantizationPreset
-from nncf.common.tensor_statistics.aggregator import StatisticsAggregator
 from nncf.common.tensor_statistics.statistic_point import StatisticPointsContainer
 from nncf.common.utils.backend import BackendType
 from nncf.common.utils.backend import copy_model
@@ -153,30 +153,6 @@ class PostTrainingQuantization(Algorithm):
                     output.add_statistic_point(statistic_point)
         return output
 
-    def _create_statistics_aggregator(self, dataset: Dataset, backend: BackendType) -> StatisticsAggregator:
-        """
-        Creates backend-specific StatisticsAggregator.
-
-        :param engine: Engine for the model execution
-        :param dataset: Dataset for the statistics collection and validation
-        :param model_transformer: Backend-specific ModelTransformerBase instance
-        :param backend: Model backend type for the further differentiations
-        :return: Backend-specific StatisticsAggregator
-        """
-        if backend == BackendType.ONNX:
-            from nncf.onnx.statistics.aggregator import ONNXStatisticsAggregator
-
-            return ONNXStatisticsAggregator(dataset)
-        if backend == BackendType.OPENVINO:
-            from nncf.openvino.statistics.aggregator import OVStatisticsAggregator
-
-            return OVStatisticsAggregator(dataset)
-        if backend == BackendType.TORCH:
-            from nncf.torch.statistics.aggregator import PTStatisticsAggregator
-
-            return PTStatisticsAggregator(dataset)
-        return None
-
     def _apply(
         self,
         model: TModel,
@@ -191,13 +167,13 @@ class PostTrainingQuantization(Algorithm):
                 if isinstance(algorithm, SmoothQuant) and backend != BackendType.OPENVINO:
                     nncf_logger.debug(f"{backend.name} does not support SmoothQuant algorithm yet.")
                     continue
-                statistics_aggregator = self._create_statistics_aggregator(dataset, backend)
+                statistics_aggregator = StatisticsAggregatorFactory.create(modified_model, dataset)
                 algo_statistic_points = algorithm.get_statistic_points(modified_model)
                 statistics_aggregator.register_statistic_points(algo_statistic_points)
                 statistics_aggregator.collect_statistics(modified_model)
                 modified_model = algorithm.apply(modified_model, statistics_aggregator.statistic_points)
 
-            statistics_aggregator = self._create_statistics_aggregator(dataset, backend)
+            statistics_aggregator = StatisticsAggregatorFactory.create(modified_model, dataset)
             for algorithm in self.algorithms:
                 algo_statistic_points = algorithm.get_statistic_points(modified_model)
                 statistics_aggregator.register_statistic_points(algo_statistic_points)
