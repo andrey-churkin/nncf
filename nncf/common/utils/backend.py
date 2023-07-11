@@ -70,6 +70,18 @@ def get_backend(model) -> BackendType:
     if ov is not None and isinstance(model, ov.Model):
         return BackendType.OPENVINO
 
+    torch_flag = torch is not None
+    tf_flag = tensorflow is not None
+    onnx_flag = onnx is not None
+    ov_flag = ov is not None
+    print(f"Torch: {torch_flag}")
+    print(f"TF: {tf_flag}")
+    print(f"ONNX: {onnx_flag}")
+    print(f"OV: {ov_flag}")
+    print(f"Model: {type(model)}")
+    print(f"isinstance: {isinstance(model, ov.Model)}")
+    print(f"{ov.Model}")
+
     raise RuntimeError(
         "Could not infer the backend framework from the model type because "
         "the framework is not available or the model type is unsupported. "
