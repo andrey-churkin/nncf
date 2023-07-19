@@ -32,3 +32,12 @@ class TensorDataType(Enum):
     float64 = auto()
     int8 = auto()
     uint8 = auto()
+
+
+class TensorDeviceType(Enum):
+    """
+    Enum representing the different tensor device types.
+    """
+
+    CPU = auto()
+    GPU = auto()

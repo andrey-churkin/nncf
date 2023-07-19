@@ -11,27 +11,27 @@
 
 
 from typing import Any, Iterator, List, Optional, Tuple, TypeVar, Union
-
-from nncf.common.tensor_new import numpy_ops
-from nncf.common.tensor_new.enums import TensorBackendType
 from nncf.common.tensor_new.enums import TensorDataType
-
-try:
-    from nncf.torch import torch_ops
-
-except ImportError:
-    torch_ops = None
+from nncf.common.tensor_new.enums import TensorDeviceType
+from nncf.common.tensor_new import functions
 
 
 DataType = TypeVar("DataType")
-DeviceType = TypeVar("DeviceType")
 
 
-FUNC_MAP_DISPATCHER = {
-    TensorBackendType.NUMPY: numpy_ops,
-}
-if torch_ops:
-    FUNC_MAP_DISPATCHER[TensorBackendType.TORCH] = torch_ops
+def _initialize_backends():
+    try:
+        from nncf.common.tensor_new import numpy_functions
+    except ImportError:
+        pass
+
+    try:
+        from nncf.common.tensor_new import torch_functions
+    except ImportError:
+        pass
+
+
+_initialize_backends()
 
 
 class Tensor:
@@ -114,32 +114,32 @@ class Tensor:
     # Tensor functions
 
     @property
-    def device(self) -> Optional[DeviceType]:
-        return tensor_func_dispatcher("device", self.data)
+    def device(self) -> TensorDeviceType:
+        return functions.device(self.data)
 
     def squeeze(self, axis: Optional[Union[int, Tuple[int]]] = None) -> "Tensor":
-        return tensor_func_dispatcher("squeeze", self.data, axis=axis)
+        return Tensor(functions.squeeze(self.data, axis))
 
     def flatten(self) -> "Tensor":
-        return tensor_func_dispatcher("flatten", self.data)
+        return Tensor(functions.flatten(self.data))
 
     def max(self, axis: Optional[DataType] = None) -> "Tensor":
-        return tensor_func_dispatcher("max", self.data, axis=axis)
+        return Tensor(functions.max(self.data, axis))
 
     def min(self, axis: Optional[DataType] = None) -> "Tensor":
-        return tensor_func_dispatcher("min", self.data, axis=axis)
+        return Tensor(functions.min(self.data, axis))
 
     def abs(self) -> "Tensor":
-        return tensor_func_dispatcher("absolute", self.data)
+        return Tensor(functions.abs(self.data))
 
     def is_empty(self) -> "Tensor":
-        return tensor_func_dispatcher("is_empty", self.data)
+        return Tensor(functions.is_empty(self.data))
 
     def as_type(self, dtype: TensorDataType):
-        return tensor_func_dispatcher("as_type", self.data, dtype)
+        return Tensor(functions.as_type(self.data, dtype))
 
     def reshape(self, shape: DataType) -> "Tensor":
-        return tensor_func_dispatcher("reshape", self.data, shape)
+        return Tensor(functions.reshape(self.data, shape))
 
 
 def unwrap_tensor_data(obj: Any) -> DataType:
@@ -150,41 +150,3 @@ def unwrap_tensor_data(obj: Any) -> DataType:
     :return: The data of the Tensor object, or the object itself.
     """
     return obj.data if isinstance(obj, Tensor) else obj
-
-
-def detect_tensor_backend(*args):
-    """
-    Detect the backend of a Tensor object.
-
-    :param *args: The arguments to the Tensor object.
-    :return: The backend of the Tensor object, or None if the backend cannot be determined.
-    """
-    if not args:
-        raise RuntimeError("tensor_func_dispatcher detect backend by args[0]")
-
-    for backend, tensor_ops in FUNC_MAP_DISPATCHER.items():
-        if tensor_ops.check_tensor_backend(args[0]):
-            return backend
-    return None
-
-
-def tensor_func_dispatcher(func_name: str, *args, **kwargs) -> Any:
-    """
-    Dispatcher for tensor functions.
-
-    :param func_name: The name of the function to dispatch.
-    :param *args: The arguments to the function.
-    :param **kwargs: The keyword arguments to the function.
-    :return: The result of the function call.
-    """
-    args = tuple(map(unwrap_tensor_data, args))
-    kwargs = {k: unwrap_tensor_data(v) for k, v in kwargs.items()}
-
-    tensor_backend = detect_tensor_backend(*args)
-    if tensor_backend is None:
-        raise RuntimeError(f"{func_name} is not implemented for {type(args[0])}")
-
-    module_ops = FUNC_MAP_DISPATCHER[tensor_backend]
-    func = getattr(module_ops, func_name)
-
-    return Tensor(func(*args, **kwargs))

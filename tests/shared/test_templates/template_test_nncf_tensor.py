@@ -13,7 +13,7 @@ from typing import TypeVar
 
 import pytest
 
-import nncf.common.tensor_new.functions as nncf_fns
+import nncf.common.tensor_new.ops as nncf_fns
 from nncf.common.tensor_new import Tensor
 
 TModel = TypeVar("TModel")

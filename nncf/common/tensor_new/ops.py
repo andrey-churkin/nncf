@@ -9,91 +9,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import functools
-from typing import Optional, Tuple, Union, TypeVar
+from typing import Optional, Tuple, Union
+
+from nncf.common.tensor_new.tensor import Tensor
+from nncf.common.tensor_new.tensor import unwrap_tensor_data
+from nncf.common.tensor_new import functions
 
 
-from nncf.common.tensor_new.enums import TensorDeviceType
-from nncf.common.tensor_new.enums import TensorDataType
+# TODO: Should be removed
+def _call_function(func_name: str, *args, **kwargs):
+    args = tuple(map(unwrap_tensor_data, args))
+    kwargs = {k: unwrap_tensor_data(v) for k, v in kwargs.items()}
+    func = getattr(functions, func_name)
+    return Tensor(func(*args, **kwargs))
 
 
-TTensor = TypeVar("TTensor")
-T = TypeVar("T") # TODO: Verify
-
-
-@functools.singledispatch
-def device(a: TTensor) -> TensorDeviceType:
-    """
-    :param a:
-    :return:
-    """
-
-
-@functools.singledispatch
-def squeeze(a: TTensor, axis: Optional[Union[int, Tuple[int]]] = None) -> TTensor:
-    """
-    :param a:
-    :param axis:
-    :return:
-    """
-
-
-@functools.singledispatch
-def flatten(a: TTensor) -> TTensor:
-    """
-    :param a:
-    :return:
-    """
-
-
-@functools.singledispatch
-def max(a: TTensor, axis: Optional[T] = None) -> TTensor:
-    """
-    :param a:
-    :param axis:
-    :return:
-    """
-
-
-@functools.singledispatch
-def min(a: TTensor, axis: Optional[T] = None) -> TTensor:
-    """
-    :param a:
-    :param axis:
-    :return:
-    """
-
-
-@functools.singledispatch
-def abs(a: TTensor) -> TTensor:
-    """
-    :param a:
-    :return:
-    """
-
-
-@functools.singledispatch
-def as_type(a: TTensor, dtype: TensorDataType):
-    """
-    :param a:
-    :param dtype:
-    """
-
-
-@functools.singledispatch
-def reshape(a: TTensor, shape: T) -> TTensor:
-    """
-    :param a:
-    :param shape:
-    :return:
-    """
-
-
-###############################################################################
-
-
-@functools.singledispatch
-def all(a: TTensor, axis: Optional[Union[int, Tuple[int]]] = None) -> TTensor:  # pylint: disable=redefined-builtin
+def all(a: Tensor, axis: Optional[Union[int, Tuple[int]]] = None) -> Tensor:  # pylint: disable=redefined-builtin
     """
     Test whether all tensor elements along a given axis evaluate to True.
 
@@ -103,10 +34,10 @@ def all(a: TTensor, axis: Optional[Union[int, Tuple[int]]] = None) -> TTensor:  
     :return: A new boolean or tensor is returned unless out is specified,
       in which case a reference to out is returned.
     """
+    return _call_function("all", a, axis=axis)
 
 
-@functools.singledispatch
-def allclose(a: TTensor, b: TTensor, rtol: float = 1e-05, atol: float = 1e-08, equal_nan: bool = False) -> TTensor:
+def allclose(a: Tensor, b: Tensor, rtol: float = 1e-05, atol: float = 1e-08, equal_nan: bool = False) -> Tensor:
     """
     Returns True if two arrays are element-wise equal within a tolerance.
 
@@ -119,10 +50,10 @@ def allclose(a: TTensor, b: TTensor, rtol: float = 1e-05, atol: float = 1e-08, e
       Defaults to False.
     :return: True if the two arrays are equal within the given tolerance, otherwise False.
     """
+    return _call_function("allclose", a, b, rtol=rtol, atol=atol, equal_nan=equal_nan)
 
 
-@functools.singledispatch
-def any(a: TTensor, axis: Optional[Union[int, Tuple[int]]] = None) -> TTensor:  # pylint: disable=redefined-builtin
+def any(a: Tensor, axis: Optional[Union[int, Tuple[int]]] = None) -> Tensor:  # pylint: disable=redefined-builtin
     """
     Test whether all tensor elements along a given axis evaluate to True.
 
@@ -132,10 +63,10 @@ def any(a: TTensor, axis: Optional[Union[int, Tuple[int]]] = None) -> TTensor:  
     :return: A new boolean or tensor is returned unless out is specified,
       in which case a reference to out is returned.
     """
+    return _call_function("any", a, axis=axis)
 
 
-@functools.singledispatch
-def count_nonzero(a: TTensor, axis: Optional[Union[int, Tuple[int]]] = None) -> TTensor:
+def count_nonzero(a: Tensor, axis: Optional[Union[int, Tuple[int]]] = None) -> Tensor:
     """
     Counts the number of non-zero values in the tensor input.
 
@@ -145,20 +76,20 @@ def count_nonzero(a: TTensor, axis: Optional[Union[int, Tuple[int]]] = None) -> 
     :return: Number of non-zero values in the tensor along a given axis.
       Otherwise, the total number of non-zero values in the tensor is returned.
     """
+    return _call_function("count_nonzero", a, axis=axis)
 
 
-@functools.singledispatch
-def is_empty(a: TTensor) -> bool:
+def is_empty(a: Tensor) -> Tensor:
     """
     Return True if input tensor is empty.
 
     :param a: The input tensor.
     :return: True is tensor is empty, otherwise False.
     """
+    return _call_function("is_empty", a)
 
 
-@functools.singledispatch
-def isclose(a: TTensor, b: TTensor, rtol: float = 1e-05, atol: float = 1e-08, equal_nan: bool = False) -> TTensor:
+def isclose(a: Tensor, b: Tensor, rtol: float = 1e-05, atol: float = 1e-08, equal_nan: bool = False) -> Tensor:
     """
     Returns a boolean array where two arrays are element-wise equal within a tolerance.
 
@@ -171,10 +102,10 @@ def isclose(a: TTensor, b: TTensor, rtol: float = 1e-05, atol: float = 1e-08, eq
       Defaults to False.
     :return: Returns a boolean tensor of where a and b are equal within the given tolerance.
     """
+    return _call_function("isclose", a, b, rtol=rtol, atol=atol, equal_nan=equal_nan)
 
 
-@functools.singledispatch
-def maximum(x1: TTensor, x2: TTensor) -> TTensor:
+def maximum(x1: Tensor, x2: Tensor) -> Tensor:
     """
     Element-wise maximum of tensor elements.
 
@@ -182,10 +113,10 @@ def maximum(x1: TTensor, x2: TTensor) -> TTensor:
     :param x2: The second input tensor.
     :return: Output tensor.
     """
+    return _call_function("maximum", x1, x2)
 
 
-@functools.singledispatch
-def minimum(x1: TTensor, x2: TTensor) -> TTensor:
+def minimum(x1: Tensor, x2: Tensor) -> Tensor:
     """
     Element-wise minimum of tensor elements.
 
@@ -193,20 +124,20 @@ def minimum(x1: TTensor, x2: TTensor) -> TTensor:
     :param other: The second input tensor.
     :return: Output tensor.
     """
+    return _call_function("minimum", x1, x2)
 
 
-@functools.singledispatch
-def ones_like(a: TTensor) -> TTensor:
+def ones_like(a: Tensor) -> Tensor:
     """
     Return an tensor of ones with the same shape and type as a given tensor.
 
     :param a: The shape and data-type of a define these same attributes of the returned tensor.
     :return: Tensor of ones with the same shape and type as a.
     """
+    return _call_function("ones_like", a)
 
 
-@functools.singledispatch
-def where(condition: TTensor, x: TTensor, y: TTensor) -> TTensor:
+def where(condition: Tensor, x: Tensor, y: Tensor) -> Tensor:
     """
     Return elements chosen from x or y depending on condition.
 
@@ -215,13 +146,14 @@ def where(condition: TTensor, x: TTensor, y: TTensor) -> TTensor:
     :param y: Value at indices where condition is False.
     :return: An tensor with elements from x where condition is True, and elements from y elsewhere.
     """
+    return _call_function("where", condition, x, y)
 
 
-@functools.singledispatch
-def zeros_like(a: TTensor) -> TTensor:
+def zeros_like(a: Tensor) -> Tensor:
     """
     Return an tensor of zeros with the same shape and type as a given tensor.
 
     :param input: The shape and data-type of a define these same attributes of the returned tensor.
     :return: tensor of zeros with the same shape and type as a.
     """
+    return _call_function("zeros_like", a)
