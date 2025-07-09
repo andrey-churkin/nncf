@@ -134,3 +134,19 @@ tinyllama_data_aware_backend_ONNX:
   metric_value: 0.85807
   num_int4: 230
   num_int8: 124
+DeepSeek_R1_Distill_Qwen_1_5B_backend_ONNX:
+  metric_value: 0.70363
+  num_int4: 0
+  num_int8: 0
+Phi_3_5_mini_instruct_backend_ONNX:
+  metric_value: 0.91257
+  num_int4: 0
+  num_int8: 0
+DeepSeek_R1_Distill_Qwen_1_5B_backend_OV:
+  metric_value: 0.67788
+  num_int4: 0
+  num_int8: 0
+Phi_3_5_mini_instruct_backend_OV:
+  metric_value: 0.91443
+  num_int4: 0
+  num_int8: 0

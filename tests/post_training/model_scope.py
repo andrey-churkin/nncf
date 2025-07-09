@@ -581,6 +581,32 @@ WEIGHT_COMPRESSION_MODELS = [
         # TODO: (andreyanufr) add torch.fx backend
         "backends": [BackendType.OV, BackendType.TORCH, BackendType.ONNX],
     },
+    {
+        "reported_name": "DeepSeek_R1_Distill_Qwen_1_5B",
+        "model_id": "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
+        "pipeline_cls": LMWeightCompression,
+        "compression_params": {
+            "group_size": 32,
+            "ratio": 0.7,
+            "mode": CompressWeightsMode.INT4_ASYM,
+            "awq": True,
+            "scale_estimation": True
+        },
+        "backends": [BackendType.ONNX, BackendType.OV]
+    },
+    {
+        "reported_name": "Phi_3_5_mini_instruct",
+        "model_id": "microsoft/Phi-3.5-mini-instruct",
+        "pipeline_cls": LMWeightCompression,
+        "compression_params": {
+            "group_size": 64,
+            "ratio": 1.0,
+            "mode": CompressWeightsMode.INT4_ASYM,
+            "awq": True,
+            "scale_estimation": True
+        },
+        "backends": [BackendType.ONNX, BackendType.OV]
+    }
 ]
 
 

@@ -249,9 +249,21 @@ class LMWeightCompression(BaseTestPipeline):
                     "tensor(int64)": np.int64,
                 }
                 for input_name in self.model_hf.key_value_input_names:
+
+                    # -------------------------------------------------------------
+                    # DeepSeek_R1_Distill_Qwen_1_5B_backend_ONNX
+                    # inputs[input_name] = np.empty(
+                    #     shape=(1, 2, 0, 128), dtype=onnx_type_to_numpy[self.model_hf.input_dtypes[input_name]]
+                    # )
+                    # -------------------------------------------------------------
+
+                    # -------------------------------------------------------------
+                    # Phi_3_5_mini_instruct_backend_ONNX
+                    # (batch_size, 32, past_sequence_length, 96)
                     inputs[input_name] = np.empty(
-                        shape=(1, 4, 0, 64), dtype=onnx_type_to_numpy[self.model_hf.input_dtypes[input_name]]
+                        shape=(1, 32, 0, 96), dtype=onnx_type_to_numpy[self.model_hf.input_dtypes[input_name]]
                     )
+                    # -------------------------------------------------------------
 
             return inputs
 
@@ -403,6 +415,7 @@ class LMWeightCompression(BaseTestPipeline):
                 load_in_8bit=False,
                 compile=False,
                 stateful=is_stateful,
+                # from_onnx=True // ONLY FOR ONNX backend
             )
             evaluator = Evaluator(base_model=model_gold, tokenizer=self.preprocessor, metrics=("similarity",))
             evaluator.dump_gt(str(gt_data_path))
